@@ -1,11 +1,11 @@
-angular.module("movie-shelf")
-  .component("shelf", {
+angular.module('movie-shelf')
+  .component('shelf', {
     bindings: {
-      myMovies: "<",
-      spliceit: "<"
+      myMovies: '<',
+      spliceit: '<',
     },
-    controller: function (server) {
-    
+    controller: function controller(server) {
+
     },
-    templateUrl: "/templates/shelf.html"
-});
+    templateUrl: '/templates/shelf.html',
+  });
