@@ -32,7 +32,9 @@ angular.module('movie-shelf')
             .catch((err) => { console.log(err); });
           TheMovieDB.searchCast(movies[0].id)
             .then((credits) => {
+              const director = credits.crew.filter(member => member.job === 'Director');
               movieDetails.credits = credits;
+              movieDetails.director = director;
               // console.log(credits, 'Credits');
             })
             .catch((err) => { console.log(err); });

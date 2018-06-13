@@ -1,8 +1,10 @@
 <li class="video-list-entry media">
   <h4>{{$ctrl.movie.title}}</h4>
   <div class="media-left">
+
   </div>
   <div class="media-body">
+    <div>{{$ctrl.movie.director[0].name}}</div>
     <div>{{$ctrl.movie.releaseDate.slice(0,4)}}</div>
     <div>{{'"' + $ctrl.movie.overview + '"'}}</div>
   </div>
