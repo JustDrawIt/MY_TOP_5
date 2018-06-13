@@ -43,5 +43,17 @@ describe('favorite', () => {
           done();
         });
     });
+
+    it('returns error if already favorited', (done) => {
+      axios.post(endpoint, { userId: userMongoId, movieId })
+        .then(() => axios.post(endpoint, { userId: userMongoId, movieId }))
+        .catch((error) => {
+          expect(error).to.exist;
+          expect(error.response.status).to.equal(500);
+          expect(error.response.data.error).to.be.a('string');
+
+          done();
+        });
+    });
   });
 });
