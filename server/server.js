@@ -14,21 +14,33 @@ app.use(express.static('node_modules'));
 app.use(bodyParser.urlencoded({ 'extended': 'true' }));
 app.use(bodyParser.json());
 
-app.get('/shelf', (req, res) => {
-  db.getAllMovies()
-    .then(movies => res.send({ data: movies, error: null }))
-    .catch(error => res.status(500).send({ error: error.message }));
-});
+app.get('/movies', (req, res) => {
+  const { movieId } = req.query;
 
-app.post('/shelf', (req, res) => {
-  db.createMovie(req.body.params.movie)
-    .then(newMovie => res.send({ data: newMovie, error: null }))
-    .catch(error => res.status(500).send({ error: error.message }));
-});
-
-app.delete('/shelf', (req, res) => {
-  db.removeMovie(movieId)
+  (movieId ? db.findMovie(movieId) : db.getAllMovies())
     .then(data => res.send({ data, error: null }))
+    .catch(error => res.status(500).send({ error: error.message }))
+});
+
+app.post('/movies', (req, res) => {
+  const { movieId } = req.body;
+
+  !movieId
+    ? res.status(400).send({ error: 'Expected body to include movieId' })
+    : db.createMovie(movieId)
+      .then(newMovie => res.send({ data: newMovie, error: null }))
+      .catch(error => res.status(500).send({ error: error.message }));
+});
+
+app.delete('/movies', (req, res) => {
+  const { movieId } = req.body;
+
+  db.removeMovie(movieId)
+<<<<<<< HEAD
+    .then(data => res.send({ data, error: null }))
+=======
+    .then(() => res.send({ data: true, error: null }))
+>>>>>>> 03a6cba88dc887533a9a089be86c6acf3f451197
     .catch(error => res.status(500).send({ error: error.message }));
 });
 

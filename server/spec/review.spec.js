@@ -9,9 +9,7 @@ const endpoint = `http://localhost:${PORT}/review`;
 
 describe('review', () => {
   describe('on post', () => {
-
-    let movieId = 4343;
-    let movie;
+    const movieId = 4343;
 
     beforeEach((done) => {
       new Movie({ movieId })
@@ -22,7 +20,7 @@ describe('review', () => {
     afterEach((done) => {
       Movie.findOneAndRemove({ movieId })
         .exec()
-        .then(() => done())
+        .then(() => done());
     });
 
     it('creates a review', (done) => {
@@ -61,5 +59,5 @@ describe('review', () => {
           done();
         });
     });
-  })
+  });
 });

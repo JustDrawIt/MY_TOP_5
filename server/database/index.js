@@ -8,7 +8,11 @@ db.on('error', error => console.error('Connection to database unsuccessful', err
 db.once('open', () => console.log(`Connection to database successful: ${MONGO_URI}`));
 
 const movieSchema = mongoose.Schema({
-  movieId: Number,
+  movieId: {
+    type: Number,
+    unique: true,
+    required: true,
+  },
   favorites: {
     type: Number,
     default: 0,
