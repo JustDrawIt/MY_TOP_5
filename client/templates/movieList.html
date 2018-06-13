@@ -1,9 +1,6 @@
 <div>
-    <h4> iTunes search results </h4>
-    There are {{$ctrl.movies.length}} flicks.
-    <ul>
-        <movie-list-entry ng-repeat="movie in $ctrl.movies" movie="movie" pushit="$ctrl.pushit" />
-    </ul>
+    <h4> Search results </h4>
+    There are {{$ctrl.moviesDb.length}} flicks.
     <ul>
         <movie-entry ng-repeat="movie in $ctrl.moviesDb" movie="movie" pushit="$ctrl.pushit" />
     </ul>
