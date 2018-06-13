@@ -8,7 +8,7 @@
         <div>{{$ctrl.movie.artistName}}</div>
         <div>{{$ctrl.movie.releaseDate.slice(0,4)}}</div>
         <div>{{'"' + $ctrl.movie.longDescription + '"'}}</div>
-        <a ng-href="{{$ctrl.movie.previewUrl}}" target="_blank" class="btn btn-primary btn-md active" role="button">Trailer</a>
-        <button type="button" class="btn btn-success" ng-click="$ctrl.sendMovie($ctrl.movie)">Add to my shelf</button>
+        <button ng-href="{{$ctrl.movie.previewUrl}}" target="_blank" class="btn blue z-depth-3" role="button">Trailer</button>
+        <button type="button" class="btn blue z-depth-3" ng-click="$ctrl.sendMovie($ctrl.movie)">Add to my shelf</button>
     </div>
 </li>
