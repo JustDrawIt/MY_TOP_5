@@ -1,10 +1,18 @@
 <div class="search-bar form-inline">
-    <input 
-        class="form-control" 
-        type="text" 
-        ng-model="search" 
-    />
-    <button ng-click='$ctrl.onClick(search)' class="btn">
-        <span class="glyphicon glyphicon-search"></span>
-    </button>
+    <div class="row">
+        <form class="left-align col s6">
+            <div class="row">
+                <div class="input-field col s9">
+                    <input ng-model='search' id="search" type="text" class="validate">
+                    <label for="search">Search</label>
+                </div>
+                <div class="input-field col s3">
+                    <button ng-click='$ctrl.onClick(search)' class="btn blue waves-effect waves-light">
+                        <i class="material-icons">search</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="col s6"></div>
+    </div>
 </div>
