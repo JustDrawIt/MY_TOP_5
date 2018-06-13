@@ -12,10 +12,18 @@ angular.module('movie-shelf')
 
       this.getDetailsFromIDs = (movies) => {
         movies.forEach((movie) => {
-          const { id, title } = movie;
+          console.log(movie);
+          const {
+            id,
+            title,
+            overview,
+            releaseDate,
+          } = movie;
           const movieDetails = {};
           movieDetails.id = id;
           movieDetails.title = title;
+          movieDetails.overview = overview;
+          movieDetails.releaseDate = releaseDate;
           TheMovieDB.searchVideos(id)
             .then((videos) => {
               // console.log(videos, 'VIDEOs');
