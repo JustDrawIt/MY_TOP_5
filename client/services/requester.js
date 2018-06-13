@@ -101,5 +101,8 @@ angular.module('movie-shelf')
       .then(({ data }) => {
         console.log(data);
       })
+      .catch((err) => {
+        console.error(err);
+      })
     };
   });
