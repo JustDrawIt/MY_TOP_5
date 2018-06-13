@@ -2,52 +2,57 @@ require('dotenv').config();
 const axios = require('axios');
 const { expect } = require('chai');
 
-const { Movie } = require('../database');
+const { Movie, User, Review } = require('../database');
 
 const { PORT } = process.env;
 const endpoint = `http://localhost:${PORT}/review`;
 
 describe('review', () => {
   describe('on post', () => {
-    const movieId = 4343;
+    const movieId = 34343;
+    const username = 'Bob';
+    let movieMongoId;
+    let userMongoId;
 
     beforeEach((done) => {
-      new Movie({ movieId })
-        .save()
-        .then(() => done());
+      Promise.all([
+        new Movie({ movieId }).save(),
+        new User({ username }).save(),
+      ]).then(([movie, user]) => {
+        movieMongoId = movie._id;
+        userMongoId = user._id;
+        done();
+      });
     });
 
     afterEach((done) => {
-      Movie.findOneAndRemove({ movieId })
-        .exec()
-        .then(() => done());
+      Promise.all([
+        Movie.deleteMany().exec(),
+        User.deleteMany().exec(),
+        Review.deleteMany().exec(),
+      ]).then(() => done());
     });
 
     it('creates a review', (done) => {
-      const review = { message: 'This movie sucked!', userId: 3434 };
+      const payload = {
+        message: 'This movie sucked!',
+        userId: userMongoId,
+        movieId,
+      };
 
-      axios.post(endpoint, { movieId, ...review })
+      axios.post(endpoint, payload)
         .then((response) => {
           expect(response.status).to.equal(200);
           expect(response.data.error).to.be.null;
           expect(response.data.data).to.exist;
-        })
-        .then(() => Movie.findOne({ movieId }))
-        .then((updatedMovie) => {
-          const newReview = updatedMovie.reviews[0];
-
-          expect(newReview).to.exist;
-          expect(newReview.message).to.equal(review.message);
-          expect(newReview.userId).to.equal(review.userId);
 
           done();
         });
     });
 
     it('should not create a review when already posted one', (done) => {
-      const userId = 3434;
-      const review1 = { message: 'This movie sucked!', userId };
-      const review2 = { message: 'I changed my mind...it\'s not that bad', userId };
+      const review1 = { message: 'This movie sucked!', userId: userMongoId };
+      const review2 = { message: 'I changed my mind...it\'s not that bad', userId: userMongoId };
 
       axios.post(endpoint, { movieId, ...review1 })
         .then(() => axios.post(endpoint, { movieId, ...review2 }))

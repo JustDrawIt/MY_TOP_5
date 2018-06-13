@@ -79,7 +79,7 @@ app.post('/favorite', (req, res) => {
 app.post('/review', (req, res) => {
   const { movieId, userId, message } = req.body;
 
-  db.addReview(movieId, { userId, message })
+  db.addReview({ movieId, userId, message })
     .then(movie => res.send({ data: movie, error: null }))
     .catch(error => res.status(500).send({ error: error.message }));
 });

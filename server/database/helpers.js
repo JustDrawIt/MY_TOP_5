@@ -26,17 +26,23 @@ const favoriteMovie = (movieId, userId) => findUserById(userId)
     return movie.save();
   });
 
-const addReview = (movieId, review) => findMovie(movieId)
-  .then((movie) => {
-    const userAlreadyReviewed = !!movie.reviews.find(oldReview => oldReview.userId === review.userId);
+const createReview = review => new Review(review).save();
 
-    if (userAlreadyReviewed) {
-      return Promise.reject(new Error('User has already reviewed movie'));
-    }
-
-    movie.reviews.push(review);
-    return movie.save();
-  });
+const addReview = ({ movieId, userId, message }) => Review.findOne({ movieId, userId })
+  .then((review) => {
+    if (review) return Promise.reject(new Error(`User with userId of ${userId} has already reviewed movie with movieId of ${movieId}`));
+    return createReview({ movieId, userId, message });
+  })
+  .then(newReview => Promise.all([
+    findMovie(newReview.movieId).then((movie) => {
+      movie.reviews.push({ reviewId: newReview._id });
+      return movie.save();
+    }),
+    findUserById(newReview.userId).then((user) => {
+      user.reviews.push({ reviewId: newReview._id });
+      return user.save();
+    }),
+  ]).then(() => newReview));
 
 module.exports.getAllMovies = getAllMovies;
 module.exports.findMovie = findMovie;

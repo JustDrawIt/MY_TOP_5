@@ -18,7 +18,7 @@ const movieSchema = mongoose.Schema({
     default: 0,
   },
   reviews: {
-    type: [{ reviewId: Number }],
+    type: [{ reviewId: String }],
     default: [],
   },
 });
@@ -34,7 +34,7 @@ const userSchema = mongoose.Schema({
     default: [],
   },
   reviews: {
-    type: [{ reviewId: Number }],
+    type: [{ reviewId: String }],
     default: [],
   },
 });
@@ -45,7 +45,7 @@ const reviewSchema = mongoose.Schema({
     required: true,
   },
   userId: {
-    type: Number,
+    type: String,
     required: true,
   },
   message: {
