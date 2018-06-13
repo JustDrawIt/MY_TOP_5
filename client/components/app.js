@@ -11,6 +11,9 @@ angular.module('movie-shelf')
       };
 
       this.getDetailsFromIDs = (movies) => {
+        // reset moviesDB state;
+        this.moviesDB = [];
+        // push each movieDetail to moviesDB state
         movies.forEach((movie) => {
           console.log(movie);
           const {
