@@ -19,7 +19,7 @@ app.get('/movies', (req, res) => {
 
   (movieId ? db.findMovie(movieId) : db.getAllMovies())
     .then(data => res.send({ data, error: null }))
-    .catch(error => res.status(500).send({ error: error.message }))
+    .catch(error => res.status(500).send({ error: error.message }));
 });
 
 app.post('/movies', (req, res) => {
@@ -36,11 +36,7 @@ app.delete('/movies', (req, res) => {
   const { movieId } = req.body;
 
   db.removeMovie(movieId)
-<<<<<<< HEAD
-    .then(data => res.send({ data, error: null }))
-=======
     .then(() => res.send({ data: true, error: null }))
->>>>>>> 03a6cba88dc887533a9a089be86c6acf3f451197
     .catch(error => res.status(500).send({ error: error.message }));
 });
 
