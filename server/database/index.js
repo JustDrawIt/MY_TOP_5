@@ -28,4 +28,12 @@ const movieSchema = mongoose.Schema({
 
 const Movie = mongoose.model('Movie', movieSchema);
 
+const userSchema = mongoose.Schema({
+  username: String,
+  googleId: String,
+});
+
+const User = mongoose.model('User', userSchema);
+
+module.exports.User = User;
 module.exports.Movie = Movie;
