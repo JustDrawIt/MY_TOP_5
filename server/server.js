@@ -76,6 +76,14 @@ app.post('/favorite', (req, res) => {
     .catch(error => res.status(500).send({ error: error.message }));
 });
 
+app.get('/review/:reviewId', (req, res) => {
+  const { reviewId } = req.params;
+
+  db.getReview(reviewId)
+    .then(review => res.send({ data: review, error: null }))
+    .catch(error => res.status(500).send({ error: error.message }));
+});
+
 app.post('/review', (req, res) => {
   const { movieId, userId, message } = req.body;
 

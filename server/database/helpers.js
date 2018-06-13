@@ -1,6 +1,7 @@
 const { Movie, User, Review } = require('./');
 
 const findUserById = userId => User.findById(userId)
+  .exec()
   .then(user => user || Promise.reject(new Error(`No user found with userId of ${userId}`)));
 
 const getAllMovies = () => Movie.find().exec();
@@ -26,8 +27,10 @@ const favoriteMovie = (movieId, userId) => findUserById(userId)
     return movie.save();
   });
 
+const getReview = reviewId => Review.findById(reviewId)
+  .exec()
+  .then(review => review || Promise.reject(new Error(`No review found with reviewId: ${reviewId}`)));
 const createReview = review => new Review(review).save();
-
 const addReview = ({ movieId, userId, message }) => Review.findOne({ movieId, userId })
   .then((review) => {
     if (review) return Promise.reject(new Error(`User with userId of ${userId} has already reviewed movie with movieId of ${movieId}`));
@@ -49,4 +52,5 @@ module.exports.findMovie = findMovie;
 module.exports.createMovie = createMovie;
 module.exports.removeMovie = removeMovie;
 module.exports.favoriteMovie = favoriteMovie;
+module.exports.getReview = getReview;
 module.exports.addReview = addReview;
