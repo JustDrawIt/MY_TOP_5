@@ -94,4 +94,12 @@ angular.module('movie-shelf')
           console.log(err);
         });
     };
+  })
+  .service('checkAuth', function ($http) {
+    this.check = () => {
+      $http.get('/auth')
+      .then(({ data }) => {
+        console.log(data);
+      })
+    };
   });

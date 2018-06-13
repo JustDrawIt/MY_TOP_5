@@ -17,14 +17,6 @@ app.use(bodyParser.urlencoded({ extended: 'true' }));
 app.use(bodyParser.json());
 passportSetup(app);
 
-const authenticate = (req, res, next) => (
-  req.user ? next() : res.redirect('/login')
-);
-
-app.get('/', authenticate, (req, res) => {
-  res.redirect('/login');
-});
-
 app.get('/movies', (req, res) => {
   const { movieId } = req.query;
 
