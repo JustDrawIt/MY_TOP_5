@@ -44,19 +44,6 @@ angular.module('movie-shelf')
           reject(err);
         });
     });
-
-    this.getDetailsFromIDs = movies => new Promise((resolve, reject) => {
-      this.searchVideos(movies[0].id)
-        .then((videos) => {
-          console.log(videos, 'VIDEOs');
-        })
-        .catch((err) => { console.log(err); });
-      this.searchCast(movies[0].id)
-        .then((credits) => {
-          console.log(credits, 'Credits');
-        })
-        .catch((err) => { console.log(err); });
-    });
   })
   .service('server', function ($http) {
     this.getShelf = (callback) => {
