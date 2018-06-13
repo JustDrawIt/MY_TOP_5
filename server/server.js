@@ -1,4 +1,4 @@
-require('dotenv').config(); 
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
@@ -68,10 +68,26 @@ app.get('/searchCast', (req, res) => {
     .catch(error => res.status(500).send({ error: error.message }));
 });
 
+app.post('/favorite', (req, res) => {
+  const { userId, movieId } = req.body;
+
+  db.favoriteMovie(movieId, userId)
+    .then(movie => res.send({ data: movie, error: null }))
+    .catch(error => res.status(500).send({ error: error.message }));
+});
+
+app.get('/review/:reviewId', (req, res) => {
+  const { reviewId } = req.params;
+
+  db.getReview(reviewId)
+    .then(review => res.send({ data: review, error: null }))
+    .catch(error => res.status(500).send({ error: error.message }));
+});
+
 app.post('/review', (req, res) => {
   const { movieId, userId, message } = req.body;
 
-  db.addReview(movieId, { userId, message })
+  db.addReview({ movieId, userId, message })
     .then(movie => res.send({ data: movie, error: null }))
     .catch(error => res.status(500).send({ error: error.message }));
 });
