@@ -8,6 +8,37 @@ const { PORT } = process.env;
 const endpoint = `http://localhost:${PORT}/review`;
 
 describe('review', () => {
+  describe('on get', () => {
+    let reviewId;
+
+    beforeEach((done) => {
+      new Review({
+        movieId: 123132,
+        userId: 'asdasdweaewqqqeqe',
+        message: 'I love this movie!',
+      }).save().then((savedReview) => {
+        reviewId = savedReview._id.toString();
+        done();
+      });
+    });
+
+    afterEach((done) => {
+      Review.findByIdAndRemove(reviewId)
+        .exec()
+        .then(() => done());
+    });
+
+    it('returns review', (done) => {
+      axios.get(`${endpoint}/${reviewId}`)
+        .then((response) => {
+          expect(response.status).to.equal(200);
+          expect(response.data.error).to.be.null;
+          expect(response.data.data._id).to.equal(reviewId);
+          done();
+        });
+    });
+  });
+
   describe('on post', () => {
     const movieId = 34343;
     const username = 'Bob';
