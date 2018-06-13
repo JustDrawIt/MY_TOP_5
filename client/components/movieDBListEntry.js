@@ -4,9 +4,7 @@ angular.module('movie-shelf')
       movie: '<',
       pushit: '<',
     },
-    // finish up this function
     controller: function controller() {
-      console.log('DB CONTROLLER');
       this.sendMovie = (movie) => {
         this.pushit(movie);
       };
