@@ -2,6 +2,7 @@ angular.module('movie-shelf')
   .component('app', {
     controller: function controller(server, TheMovieDB) {
       this.movies = [];
+      this.moviesDB = [];
       this.shelf = [];
 
       this.searchResults = (data) => {
@@ -9,12 +10,10 @@ angular.module('movie-shelf')
         console.log('UPDATED MOVIES', this.movies);
       };
 
-      this.getDetailsFromIDs = movies => new Promise((resolve, reject) => {
-        console.log('IN RESULTS');
-        let moviesDetails = [];
+      this.getDetailsFromIDs = (movies) => {
         movies.forEach((movie) => {
           const { id, title } = movie;
-          let movieDetails = {};
+          const movieDetails = {};
           movieDetails.id = id;
           movieDetails.title = title;
           TheMovieDB.searchVideos(id)
@@ -29,10 +28,11 @@ angular.module('movie-shelf')
               // console.log(credits, 'Credits');
             })
             .catch((err) => { console.log(err); });
-          moviesDetails.push(movieDetails);
+          this.moviesDB.push(movieDetails);
         });
-        console.log(moviesDetails, 'MOVIES DETAILS');
-      });
+        // this.moviesDB = moviesDetails;
+        console.log(this.moviesDB, 'MOVIES DETAILS');
+      };
 
       this.pushit = (movie) => {
         this.shelf.unshift(movie);
