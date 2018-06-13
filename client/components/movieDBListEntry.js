@@ -1,14 +1,13 @@
 angular.module('movie-shelf')
-  .component('movieListEntry', {
+  .component('movieEntry', {
     bindings: {
       movie: '<',
       pushit: '<',
     },
-    // finish up this function
     controller: function controller() {
       this.sendMovie = (movie) => {
         this.pushit(movie);
       };
     },
-    templateUrl: '/templates/movieListEntry.html',
+    templateUrl: '/templates/movieDBListEntry.html',
   });

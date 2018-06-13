@@ -2,7 +2,7 @@
     <h1>My Movie Shelf</h1>
     <nav>
         search for a movie!
-        <search result="$ctrl.searchResults"></search>
+        <search result="$ctrl.searchResults" get-details="$ctrl.getDetailsFromIDs"></search>
     </nav>
     
     <div class="container fluid">
@@ -10,7 +10,7 @@
             <div class="col-sm-7">
                 <!-- search results list goes here -->
                 <movie-list
-                    movies="$ctrl.movies"
+                    movies="$ctrl.movies" movies-db="$ctrl.moviesDB"
                     pushit="$ctrl.pushit"
                 ></movie-list>
             </div>

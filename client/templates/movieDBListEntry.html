@@ -1,0 +1,13 @@
+<li class="video-list-entry media">
+  <h4>{{$ctrl.movie.title}}</h4>
+  <div class="media-left">
+    <img class="media-object" width='200' height='300' ng-src="{{$ctrl.movie.posterUrl}}" />
+  </div>
+  <div class="media-body">
+    <div>{{$ctrl.movie.director[0].name}}</div>
+    <div>{{$ctrl.movie.releaseDate.slice(0,4)}}</div>
+    <div>{{'"' + $ctrl.movie.overview + '"'}}</div>
+    <a ng-href="{{$ctrl.movie.previewUrl}}" target="_blank" class="btn btn-primary btn-md active" role="button">Trailer</a>
+    <button type="button" class="btn btn-success" ng-click="$ctrl.sendMovie($ctrl.movie)">Add to my shelf</button>
+  </div>
+</li>
