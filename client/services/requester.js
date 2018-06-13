@@ -37,12 +37,25 @@ angular.module('movie-shelf')
     this.searchCast = id => new Promise((resolve, reject) => {
       $http.get('/searchCast', { params: { id } })
         .then((response) => {
-          // resolves an object with arrays on .cast and .crew  of objects containing data about the cast
+        // resolves an object with arrays on .cast and .crew  of objects containing data about the cast
           resolve(response.data);
         })
         .catch((err) => {
           reject(err);
         });
+    });
+
+    this.getDetailsFromIDs = movies => new Promise((resolve, reject) => {
+      this.searchVideos(movies[0].id)
+        .then((videos) => {
+          console.log(videos, 'VIDEOs');
+        })
+        .catch((err) => { console.log(err); });
+      this.searchCast(movies[0].id)
+        .then((credits) => {
+          console.log(credits, 'Credits');
+        })
+        .catch((err) => { console.log(err); });
     });
   })
   .service('server', function ($http) {

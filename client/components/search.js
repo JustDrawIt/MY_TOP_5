@@ -10,16 +10,7 @@ angular.module('movie-shelf')
         TheMovieDB.search(query)
           .then((result) => {
             const { results } = result;
-            TheMovieDB.searchVideos(results[0].id)
-              .then((videos) => {
-                console.log(videos, 'VIDEOs');
-              })
-              .catch((err) => { console.log(err); });
-            TheMovieDB.searchCast(results[0].id)
-              .then((credits) => {
-                console.log(credits, 'Credits');
-              })
-              .catch((err) => { console.log(err); });
+            TheMovieDB.getDetailsFromIDs(results);
           })
           .catch((err) => { console.log(err); });
       };
