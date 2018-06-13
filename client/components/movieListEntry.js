@@ -2,13 +2,13 @@ angular.module('movie-shelf')
   .component('movieListEntry', {
     bindings: {
       movie: '<',
-      pushit:'<'
+      pushit: '<',
     },
-    //finish up this function
-    controller: function () {
+    // finish up this function
+    controller: function controller() {
       this.sendMovie = (movie) => {
-        console.log('were making it this far')
-        console.log('this', this)
+        console.log('were making it this far');
+        console.log('this', this);
         this.pushit(movie);
       };
     },
