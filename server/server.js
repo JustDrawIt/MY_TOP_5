@@ -29,7 +29,7 @@ app.post('/shelf', (req, res) => {
 app.delete('/shelf', (req, res) => {
   db.removeMovie(movieId)
     .then(data => res.send({ data, error: null }))
-    .catch(error => res.status(500).send({ error: error.message }))
+    .catch(error => res.status(500).send({ error: error.message }));
 });
 
 app.get('/search', (req, res) => {
