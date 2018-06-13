@@ -17,13 +17,13 @@ angular.module('movie-shelf')
             id,
             title,
             overview,
-            releaseDate,
+            release_date,
           } = movie;
           const movieDetails = {};
           movieDetails.id = id;
           movieDetails.title = title;
           movieDetails.overview = overview;
-          movieDetails.releaseDate = releaseDate;
+          movieDetails.releaseDate = release_date;
           TheMovieDB.searchVideos(id)
             .then((videos) => {
               // console.log(videos, 'VIDEOs');
