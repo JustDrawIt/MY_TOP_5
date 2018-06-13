@@ -18,22 +18,46 @@ const movieSchema = mongoose.Schema({
     default: 0,
   },
   reviews: {
-    type: [{
-      message: String,
-      userId: Number,
-    }],
+    type: [{ reviewId: Number }],
     default: [],
   },
 });
 
-const Movie = mongoose.model('Movie', movieSchema);
-
 const userSchema = mongoose.Schema({
-  username: String,
   googleId: String,
+  username: {
+    type: String,
+    required: true,
+  },
+  favorites: {
+    type: [{ movieId: Number }],
+    default: [],
+  },
+  reviews: {
+    type: [{ reviewId: Number }],
+    default: [],
+  },
 });
 
+const reviewSchema = mongoose.Schema({
+  movieId: {
+    type: Number,
+    required: true,
+  },
+  userId: {
+    type: Number,
+    required: true,
+  },
+  message: {
+    type: String,
+    required: true,
+  },
+});
+
+const Movie = mongoose.model('Movie', movieSchema);
 const User = mongoose.model('User', userSchema);
+const Review = mongoose.model('Review', reviewSchema);
 
 module.exports.User = User;
 module.exports.Movie = Movie;
+module.exports.Review = Review;

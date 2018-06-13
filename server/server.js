@@ -1,4 +1,4 @@
-require('dotenv').config(); 
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
@@ -65,6 +65,14 @@ app.get('/searchCast', (req, res) => {
       const { cast, crew } = response.data;
       res.status(200).send({ cast, crew });
     })
+    .catch(error => res.status(500).send({ error: error.message }));
+});
+
+app.post('/favorite', (req, res) => {
+  const { userId, movieId } = req.body;
+
+  db.favoriteMovie(movieId, userId)
+    .then(movie => res.send({ data: movie, error: null }))
     .catch(error => res.status(500).send({ error: error.message }));
 });
 
