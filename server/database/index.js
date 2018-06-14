@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { MONGO_URI } = process.env;
 
-mongoose.connect(MONGO_URI, { useMongoClient: true })
+mongoose.connect(MONGO_URI);
 
 const db = mongoose.connection;
 db.on('error', error => console.error('Connection to database unsuccessful', error));

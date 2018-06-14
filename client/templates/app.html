@@ -1,9 +1,8 @@
-<div class='container'>
+<div ng-if="$ctrl.authenticated" class='container'>
     <h1 class="center-align title">MY MOVIE SHELF</h1>
     <search result="$ctrl.searchResults" get-details="$ctrl.getDetailsFromIDs"></search>
     <div class="row">
         <div class="col s7">
-            <!-- search results list goes here -->
             <movie-list
                 movies="$ctrl.movies" movies-db="$ctrl.moviesDB"
                 pushit="$ctrl.pushit"
@@ -17,4 +16,10 @@
             ></shelf>
         </div>
     </div>
+</div>
+<div ng-if="!$ctrl.authenticated">
+    <login 
+        authenticated = "$ctrl.authenticated"
+        change-auth = "$ctrl.changeAuth"
+    ></login>
 </div>

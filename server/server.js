@@ -17,6 +17,14 @@ app.use(bodyParser.urlencoded({ extended: 'true' }));
 app.use(bodyParser.json());
 passportSetup(app);
 
+app.get('/users/:userId', (req, res) => {
+  const { userId } = req.params;
+
+  db.findUserById(userId)
+    .then(user => res.send({ data: user, error: null }))
+    .catch(error => res.status(500).send({ error: error.message }));
+});
+
 app.get('/movies', (req, res) => {
   const { movieId } = req.query;
 
@@ -76,7 +84,24 @@ app.post('/favorite', (req, res) => {
     .catch(error => res.status(500).send({ error: error.message }));
 });
 
-app.get('/review/:reviewId', (req, res) => {
+app.get('/reviews', (req, res) => {
+  const { movieId, userId } = req.query;
+  let query;
+
+  if (movieId) {
+    query = db.getAllMovieReviews(movieId);
+  } else if (userId) {
+    query = db.getAllUserReviews(userId);
+  } else {
+    query = db.getAllReviews();
+  }
+
+  query
+    .then(data => res.send({ data, error: null }))
+    .catch(error => res.status(500).send({ error: error.message }));
+});
+
+app.get('/reviews/:reviewId', (req, res) => {
   const { reviewId } = req.params;
 
   db.getReview(reviewId)
@@ -84,7 +109,7 @@ app.get('/review/:reviewId', (req, res) => {
     .catch(error => res.status(500).send({ error: error.message }));
 });
 
-app.post('/review', (req, res) => {
+app.post('/reviews', (req, res) => {
   const { movieId, userId, message } = req.body;
 
   db.addReview({ movieId, userId, message })
@@ -101,7 +126,7 @@ app.get('/auth/google', passport.authenticate('google', {
 }));
 
 app.get('/auth/google/redirect', passport.authenticate('google'), (req, res) => {
-  res.send('Gotcha boy');
+  res.redirect('/');
 });
 
 app.get('/logout', (req, res) => {
