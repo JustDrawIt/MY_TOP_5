@@ -5,10 +5,10 @@ const { expect } = require('chai');
 const { Movie, User, Review } = require('../database');
 
 const { PORT } = process.env;
-const endpoint = `http://localhost:${PORT}/review`;
+const endpoint = `http://localhost:${PORT}/reviews`;
 
-describe('review', () => {
-  describe('on get', () => {
+describe('reviews', () => {
+  describe('on get /:reviewId', () => {
     let reviewId;
 
     beforeEach((done) => {

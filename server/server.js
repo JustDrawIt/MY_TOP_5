@@ -76,7 +76,7 @@ app.post('/favorite', (req, res) => {
     .catch(error => res.status(500).send({ error: error.message }));
 });
 
-app.get('/review/:reviewId', (req, res) => {
+app.get('/reviews/:reviewId', (req, res) => {
   const { reviewId } = req.params;
 
   db.getReview(reviewId)
@@ -84,7 +84,7 @@ app.get('/review/:reviewId', (req, res) => {
     .catch(error => res.status(500).send({ error: error.message }));
 });
 
-app.post('/review', (req, res) => {
+app.post('/reviews', (req, res) => {
   const { movieId, userId, message } = req.body;
 
   db.addReview({ movieId, userId, message })
