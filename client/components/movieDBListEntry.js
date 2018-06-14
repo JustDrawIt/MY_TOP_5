@@ -31,7 +31,7 @@ angular.module('movie-shelf')
           sliderInstance.pause();
         }
       };
-      setTimeout(getInstances, 100);
+      setTimeout(getInstances, 700);
       // });
       this.sendMovie = (movie) => {
         console.log(movie);
