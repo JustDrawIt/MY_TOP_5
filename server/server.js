@@ -84,6 +84,14 @@ app.post('/favorite', (req, res) => {
     .catch(error => res.status(500).send({ error: error.message }));
 });
 
+app.delete('/favorite', (req, res) => {
+  const { userId, movieId } = req.query;
+
+  db.unfavoriteMovie(Number(movieId), userId)
+    .then(() => res.send({ data: true, error: null }))
+    .catch(error => res.status(500).send({ error: error.message }));
+});
+
 app.get('/reviews', (req, res) => {
   const { movieId, userId } = req.query;
   let query;
