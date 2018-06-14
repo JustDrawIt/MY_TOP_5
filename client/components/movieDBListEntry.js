@@ -4,16 +4,39 @@ angular.module('movie-shelf')
       movie: '<',
       pushit: '<',
     },
-    controller: function controller() {
-      $(document).ready(() => {
-        const elems = document.querySelectorAll('.slider');
+    controller: function controller($element) {
+      const ctrl = this;
+      // angular.element(document).ready(() => {
+      // $(document).ready(() => {
+      const getInstances = () => {
+        console.log($element.find('.modal'));
         $('.modal').modal();
+        const modalElem = $element.find('.modal')[0];
+        let modalInstance;
+        if (modalElem) {
+          modalInstance = M.Modal.getInstance(modalElem);
+        }
+        if (this.movie.hasMedia) {
+          if (modalInstance) {
+            ctrl.movie.openModal = () => {
+              console.log('OPEN');
+              modalInstance.open();
+            };
+            ctrl.movie.closeModal = () => {
+              console.log('CLOSE');
+              modalInstance.close();
+            };
+          }
+        }
         $('.slider').slider();
-        elems.forEach((elem) => {
-          const instance = M.Slider.getInstance(elem);
-          instance.pause();
-        });
-      });
+        const sliderElem = $element.find('.slider')[0];
+        if (modalElem) {
+          const sliderInstance = M.Slider.getInstance(sliderElem);
+          sliderInstance.pause();
+        }
+      };
+      setTimeout(getInstances, 750);
+      // });
       this.sendMovie = (movie) => {
         console.log(movie);
         // this.pushit(movie);
