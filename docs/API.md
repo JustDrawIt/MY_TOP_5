@@ -5,53 +5,56 @@
     1. [Users](#users)
     1. [Reviews](#reviews)
 1. [GET](#get)
-    1. [/movies](#get-/movies)
-    1. [/movies?movieId=](#get-/movies?movieId=)
-    1. [/reviews](#get-/reviews)
-    1. [/reviews?movieId=](#get-/reviews?movieId=)
-    1. [/reviews?userId=](#get-/reviews?userId=)
-    1. [/reviews/:reviewId](#get-/reviews/:reviewId)
+    1. [/movies](#get-movies)
+    1. [/movies?movieId=](#get-moviesmovieid)
+    1. [/reviews](#get-reviews)
+    1. [/reviews?movieId=](#get-reviewsmovieid)
+    1. [/reviews?userId=](#get-reviewsuserid)
+    1. [/reviews/:reviewId](#get-reviewsreviewid)
 1. [POST](#post)
-    1. [/movies](#post-/movies)
-    1. [/favorite](#post-/favorite)
-    1. [/reviews](#post-/reviews)
+    1. [/movies](#post-movies)
+    1. [/favorite](#post-favorite)
+    1. [/reviews](#post-reviews)
 
 ---
 ## Schema
 
 ### Movies
-  - _id: __String__ _Mongo Object ID_
-  - movieId: __Number__ _The Movie Database API ID_
-  - favorites: __Number__ _Number representing amount of users that have favorited this movie_
-  - reviews: __Array\<{ reviewId: String }\>__ _Array of reviewIds representing all the reviews a movie has_
+  - _id: __String__ Mongo Object ID
+  - movieId: __Number__ The Movie Database API ID
+  - favorites: __Number__ Number representing amount of users thathave favorited this movie_
+  - reviews: __Array\<{ reviewId: String }\>__ Array of reviewIdsrepresenting all the reviews a movie has_
 ### Users
-  - _id: __String__ _Mongo Object ID_
-  - googleId: __String__ _The user's google id retrieved from google auth_
-  - username: __String__ _The user's nickname_
-  - favorites: __Array\<{ movieId: Number }\>__ _Array of movieIds representing all the movies a user has favorited_
-  - reviews: __Array\<{ reviewId: String }\>__ _Array of reviewIds representing all the reviews a user has made_
+  - _id: __String__ Mongo Object ID
+  - googleId: __String__ The user's google id retrieved from googleauth_
+  - username: __String__ The user's nickname
+  - favorites: __Array\<{ movieId: Number }\>__ Array of movieIdsrepresenting all the movies a user has favorited_
+  - reviews: __Array\<{ reviewId: String }\>__ Array of reviewIdsrepresenting all the reviews a user has made_
 ### Reviews
-  - _id: __String__ _Mongo Object ID_
-  - movieId: __Number__ _The Movie Database API ID represening the movie that was given a review_
-  - userId: __String__ _The Mongo Object Id representing the user that gave the review_
-  - message: __String__ _The actual text of the review_
+  - _id: __String__ Mongo Object ID
+  - movieId: __Number__ The Movie Database API ID represening themovie that was given a review_
+  - userId: __String__ The Mongo Object Id representing the user thatgave the review_
+  - message: __String__ The actual text of the review
 
 ---
 ## GET
 
-* ### GET /movies - _Returns all movies_
+* ### GET /movies
+  > Returns all movies
   #### Response
   - data: __Array\<[Movie](#movies)\>__
   - error: __Null | String__
   ```json
   {
-    "data": [....],
+    "data": [...],
     "error": null
   }
   ```
 
-* ### GET /movies?movieId= - _Returns a specific movie with a movieId_
+* ### GET /movies?movieId=
+  > Returns a specific movie with a movieId
   #### Query
+  - movieId: __Number__
   ```
   ?movieId=342521
   ```
@@ -65,7 +68,8 @@
   }
   ```
 
-* ### GET /reviews - _Returns all reviews_
+* ### GET /reviews
+  > Returns all reviews
   #### Response
   - data: __Array\<[Review](#reviews)\>__
   - error: __Null | String__
@@ -76,8 +80,10 @@
   }
   ```
 
-* ### GET /reviews?movieId= - _Returns all the reviews from a movie with movieId_
+* ### GET /reviews?movieId=
+  > Returns all the reviews from a movie with movieId
   #### Query
+  - movieId: __Number__
   ```
   ?movieId=342521
   ```
@@ -91,8 +97,10 @@
   }
   ```
 
-* ### GET /reviews?userId= - _Returns all the reviews from a usre with userId_
+* ### GET /reviews?userId=
+  > Returns all the reviews from a user with userId
   #### Query
+  - userId: __Number__
   ```
   ?userId=5b22931560ae4d29aac43a72
   ```
@@ -106,7 +114,8 @@
   }
   ```
 
-* ### GET /reviews/:reviewId - _Returns a specific review with a reviewId_
+* ### GET /reviews/:reviewId
+  > Returns a specific review with reviewId
   #### Response
   - data: __[Review](#reviews)__
   - error: __Null | String__
@@ -120,7 +129,8 @@
 ---
 ## POST
 
-* ### POST /movies - _Creates a new movie_
+* ### POST /movies
+  > Creates a new movie
   #### Body
   - movieId: __Number__
   ```json
@@ -138,7 +148,8 @@
   }
   ```
 
-* ### POST /favorite - _Updates a movie's favorite count_
+* ### POST /favorite
+  > Updates a movie's favorite count
   #### Body
   - movieId: __Number__
   - userId: __String__
@@ -158,7 +169,8 @@
   }
   ```
 
-* ### POST /reviews - _Creates a movie review_
+* ### POST /reviews
+  > Creates a movie review
   #### Body
   - message: __String__
   - movieId: __Number__
