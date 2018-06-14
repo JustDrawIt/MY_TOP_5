@@ -1,4 +1,4 @@
-<div class='container'>
+<div ng-if="$ctrl.authenticated" class='container'>
     <h1 class="left-align">My Movie Shelf</h1>
     <search result="$ctrl.searchResults" get-details="$ctrl.getDetailsFromIDs"></search>
     <div class="row">
@@ -15,9 +15,8 @@
                 spliceit="$ctrl.spliceit"
             ></shelf>
         </div>
-        <div>
-            <login></login>
-        </div>
-
     </div>
+</div>
+<div ng-if="!$ctrl.authenticated">
+    <login></login>
 </div>
