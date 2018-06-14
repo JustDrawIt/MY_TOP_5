@@ -7,6 +7,7 @@
 1. [GET](#get)
     1. [/movies](#get-movies)
     1. [/movies?movieId=](#get-moviesmovieid)
+    1. [/users/:userId](#get-usersuserid)
     1. [/reviews](#get-reviews)
     1. [/reviews?movieId=](#get-reviewsmovieid)
     1. [/reviews?userId=](#get-reviewsuserid)
@@ -52,14 +53,31 @@
   ```
 
 * ### GET /movies?movieId=
-  > Returns a specific movie with a movieId
+  > Returns a specific movie with movieId
   #### Query
   - movieId: __Number__
-  ```
+  ```http
   ?movieId=342521
   ```
   #### Response
   - data: __[Movie](#movies)__
+  - error: __Null | String__
+  ```json
+  {
+    "data": {...},
+    "error": null
+  }
+  ```
+
+* ### GET /users/:userId
+  > Returns a specific user with userId
+  ### Request
+  - userId: __String__
+  ```http
+  /users/5b22931560ae4d29aac43a72
+  ```
+  #### Response
+  - data: __[User](#users)__
   - error: __Null | String__
   ```json
   {
@@ -84,7 +102,7 @@
   > Returns all the reviews from a movie with movieId
   #### Query
   - movieId: __Number__
-  ```
+  ```http
   ?movieId=342521
   ```
   #### Response
@@ -101,7 +119,7 @@
   > Returns all the reviews from a user with userId
   #### Query
   - userId: __Number__
-  ```
+  ```http
   ?userId=5b22931560ae4d29aac43a72
   ```
   #### Response
@@ -116,6 +134,11 @@
 
 * ### GET /reviews/:reviewId
   > Returns a specific review with reviewId
+  #### Request
+  - reviewId: __String__
+  ```http
+  /reviews/5b22ca535bcb3f3c9089e570
+  ```
   #### Response
   - data: __[Review](#reviews)__
   - error: __Null | String__
