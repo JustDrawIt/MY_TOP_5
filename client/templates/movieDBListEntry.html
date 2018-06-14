@@ -7,12 +7,12 @@
     <div><b>{{$ctrl.movie.director[0].name}}</b></div>
     <div>{{$ctrl.movie.releaseDate.slice(0,4)}}</div>
     <div>{{'"' + $ctrl.movie.overview + '"'}}</div>
-    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Media</a>
+    <a class="waves-effect waves-light btn modal-trigger" ng-href="{{'#modal'+$ctrl.movie.modalRef}}">Media</a>
     <button ng-href="{{$ctrl.movie.previewUrl}}" target="_blank" class="btn blue waves-effect waves-light z-depth-2" role="button">Trailer</button>
     <button type="button" class="btn blue waves-effect waves-light z-depth-2" ng-click="$ctrl.sendMovie($ctrl.movie)">Add to my shelf</button>
   </div>  
   <!-- Modal Structure -->
-  <div id="modal1" class="modal">
+  <div ng-attr-id="{{'modal'+$ctrl.movie.modalRef}}" class="modal">
     <div class="modal-content">
       <h4>Video Media</h4>
       <div class="slider">
