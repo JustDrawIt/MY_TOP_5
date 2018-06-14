@@ -13,7 +13,7 @@ angular.module('movie-shelf')
         // reset moviesDB state;
         this.moviesDB = [];
         // push each movieDetail to moviesDB state
-        movies.forEach((movie) => {
+        movies.slice(0, 15).forEach((movie) => {
           const {
             id,
             title,
@@ -40,14 +40,22 @@ angular.module('movie-shelf')
               });
               movieDetails.videos = youtubeVids;
             })
-            .catch((err) => { console.log(err); });
+            .catch((err) => {
+              if (err.data.error === 'Request failed with status code 429') {
+                M.toast({ html: 'Failed to load all videos, try again in 10seconds' });
+              }
+            });
           TheMovieDB.searchCast(id)
             .then((credits) => {
               const director = credits.crew.filter(member => member.job === 'Director');
               movieDetails.credits = credits;
               movieDetails.director = director;
             })
-            .catch((err) => { console.log(err); });
+            .catch((err) => {
+              if (err.data.error === 'Request failed with status code 429') {
+                M.toast({ html: 'Failed to load all directors, try again in 10seconds' });
+              }
+            });
           this.moviesDB.push(movieDetails);
         });
       };
