@@ -9,24 +9,20 @@ angular.module('movie-shelf')
       // angular.element(document).ready(() => {
       // $(document).ready(() => {
       const getInstances = () => {
-        console.log($element.find('.modal'));
         $('.modal').modal();
         const modalElem = $element.find('.modal')[0];
         let modalInstance;
         if (modalElem) {
           modalInstance = M.Modal.getInstance(modalElem);
         }
-        if (this.movie.hasMedia) {
-          if (modalInstance) {
-            ctrl.movie.openModal = () => {
-              console.log('OPEN');
-              modalInstance.open();
-            };
-            ctrl.movie.closeModal = () => {
-              console.log('CLOSE');
-              modalInstance.close();
-            };
-          }
+        if (modalInstance) {
+          ctrl.movie.openModal = () => {
+            modalInstance.open();
+          };
+          ctrl.movie.closeModal = () => {
+            modalInstance.close();
+            modalInstance.destroy();
+          };
         }
         $('.slider').slider();
         const sliderElem = $element.find('.slider')[0];
@@ -35,7 +31,7 @@ angular.module('movie-shelf')
           sliderInstance.pause();
         }
       };
-      setTimeout(getInstances, 750);
+      setTimeout(getInstances, 100);
       // });
       this.sendMovie = (movie) => {
         console.log(movie);
