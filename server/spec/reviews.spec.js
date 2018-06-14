@@ -8,6 +8,105 @@ const { PORT } = process.env;
 const endpoint = `http://localhost:${PORT}/reviews`;
 
 describe('reviews', () => {
+  describe('on get', () => {
+    const movieId1 = 100000
+    const movieId2 = 100001
+    const userId1 = 'aaaaaaaaaa';
+    const userId2 = 'aaaaaaaaab';
+    const reviews = [
+      {
+        movieId: movieId1,
+        userId: userId1,
+        message: 'This movie was okay...',
+      },
+      {
+        movieId: movieId2,
+        userId: userId1,
+        message: 'A fantasic movie!',
+      },
+      {
+        movieId: movieId1,
+        userId: userId2,
+        message: 'Such a great movie.',
+      },
+      {
+        movieId: movieId2,
+        userId: userId2,
+        message: 'I recommend this movie to everyone.',
+      },
+    ];
+    let reviewIds = [];
+
+    beforeEach((done) => {
+      Promise.all(reviews.map(review =>
+        new Review(review).save().then(savedReview => savedReview._id.toString()))
+      ).then((ids) => {
+        reviewIds = ids;
+        done();
+      });
+    });
+
+    afterEach((done) => {
+      Promise.all(reviewIds.map(id => Review.findByIdAndRemove(id).exec()))
+        .then(() => done());
+    });
+
+    it('should return all reviews', (done) => {
+      axios.get(endpoint).then(({ status, data }) => {
+        const { data: allReviews, error } = data;
+
+        expect(status).to.equal(200);
+        expect(error).to.be.null;
+        expect(allReviews).to.be.an('array');
+        expect(allReviews.length).to.be.at.least(reviews.length);
+
+        done();
+      });
+    });
+
+    it('should return all the reviews for a movie', (done) => {
+      Promise.all([
+        axios.get(`${endpoint}?movieId=${movieId1}`),
+        axios.get(`${endpoint}?movieId=${movieId2}`),
+      ]).then(([reviewsResponse1, reviewsResponse2]) => {
+        const { status: reviewsStatus1, data: reviewsData1 } = reviewsResponse1;
+        const { status: reviewsStatus2, data: reviewsData2 } = reviewsResponse2;
+
+        expect(reviewsStatus1).to.equal(200);
+        expect(reviewsStatus2).to.equal(200);
+
+        expect(reviewsData1.error).to.be.null;
+        expect(reviewsData2.error).to.be.null;
+
+        expect(reviewsData1.data).to.be.an('array');
+        expect(reviewsData2.data).to.be.an('array');
+
+        done();
+      });
+    });
+
+    it('should return all reviews for a user', (done) => {
+      Promise.all([
+        axios.get(`${endpoint}?userId=${userId1}`),
+        axios.get(`${endpoint}?userId=${userId2}`),
+      ]).then(([reviewsResponse1, reviewsResponse2]) => {
+        const { status: reviewsStatus1, data: reviewsData1 } = reviewsResponse1;
+        const { status: reviewsStatus2, data: reviewsData2 } = reviewsResponse2;
+
+        expect(reviewsStatus1).to.equal(200);
+        expect(reviewsStatus2).to.equal(200);
+
+        expect(reviewsData1.error).to.be.null;
+        expect(reviewsData2.error).to.be.null;
+
+        expect(reviewsData1.data).to.be.an('array');
+        expect(reviewsData2.data).to.be.an('array');
+
+        done();
+      });
+    });
+  });
+
   describe('on get /:reviewId', () => {
     let reviewId;
 
