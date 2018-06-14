@@ -1,6 +1,10 @@
 <div>
   <a ng-if="!$ctrl.authenticated" href="/auth/google">
-      <button ng-click="$ctrl.onClick()">signup</button>
+    <button class="waves-effect waves-light btn">
+      <i class="material-icons left">cloud</i>Sign - Up
+    </button>
   </a>
-  <button ng-click="$ctrl.onClick()">login</button>
+  <button ng-click="$ctrl.onClick()" class="waves-effect waves-light btn">
+    <i class="material-icons right">cloud</i>Login 
+  </button>
 </div>
