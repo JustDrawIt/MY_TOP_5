@@ -85,7 +85,7 @@ app.get('/auth/google', passport.authenticate('google', {
 }));
 
 app.get('/auth/google/redirect', passport.authenticate('google'), (req, res) => {
-  res.send('Gotcha boy');
+  res.redirect('/');
 });
 
 app.get('/logout', (req, res) => {
