@@ -44,7 +44,7 @@ angular.module('movie-shelf')
               movieDetails.videos = videos;
             })
             .catch((err) => { console.log(err); });
-          TheMovieDB.searchCast(movies[0].id)
+          TheMovieDB.searchCast(id)
             .then((credits) => {
               const director = credits.crew.filter(member => member.job === 'Director');
               movieDetails.credits = credits;
