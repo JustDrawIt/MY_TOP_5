@@ -33,6 +33,9 @@ angular.module('movie-shelf')
           TheMovieDB.searchVideos(id)
             .then((videos) => {
               const youtubeVids = videos.filter(video => video.site === 'YouTube');
+              if (youtubeVids.length > 0) {
+                movieDetails.hasMedia = true;
+              }
               youtubeVids.forEach((video) => {
                 video.embededLink = $sce.trustAsResourceUrl(`https://www.youtube.com/embed/${video.key}`);
               });
