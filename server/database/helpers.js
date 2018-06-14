@@ -30,6 +30,9 @@ const favoriteMovie = (movieId, userId) => findUserById(userId)
 const getReview = reviewId => Review.findById(reviewId)
   .exec()
   .then(review => review || Promise.reject(new Error(`No review found with reviewId: ${reviewId}`)));
+const getAllMovieReviews = movieId => Review.find({ movieId }).exec();
+const getAllUserReviews = userId => Review.find({ userId }).exec();
+const getAllReviews = () => Review.find().exec();
 const createReview = review => new Review(review).save();
 const addReview = ({ movieId, userId, message }) => Review.findOne({ movieId, userId })
   .then((review) => {
@@ -53,4 +56,7 @@ module.exports.createMovie = createMovie;
 module.exports.removeMovie = removeMovie;
 module.exports.favoriteMovie = favoriteMovie;
 module.exports.getReview = getReview;
+module.exports.getAllMovieReviews = getAllMovieReviews;
+module.exports.getAllUserReviews = getAllUserReviews;
+module.exports.getAllReviews = getAllReviews;
 module.exports.addReview = addReview;
