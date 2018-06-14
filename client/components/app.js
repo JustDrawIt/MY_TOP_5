@@ -9,6 +9,16 @@ angular.module('movie-shelf')
         this.movies = data.results;
       };
 
+      this.authenticated = false;
+
+      this.changeAuth = (data) => {
+        if (data.user) {
+          this.authenticated = true;
+        }
+        return this.authenticated;
+      };
+
+
       this.getDetailsFromIDs = (movies) => {
         // reset moviesDB state;
         this.moviesDB = [];
