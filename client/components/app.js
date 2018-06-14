@@ -9,6 +9,8 @@ angular.module('movie-shelf')
         this.movies = data.results;
       };
 
+      this.authenticated = false;
+
       this.getDetailsFromIDs = (movies) => {
         // reset moviesDB state;
         this.moviesDB = [];
