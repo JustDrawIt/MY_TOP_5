@@ -99,7 +99,6 @@ angular.module('movie-shelf')
     this.check = (callback) => {
       $http.get('/auth')
         .then(({ data }) => {
-          console.log(data);
           callback(data);
         })
         .catch((err) => {
