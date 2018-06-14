@@ -50,6 +50,7 @@ const addReview = ({ movieId, userId, message }) => Review.findOne({ movieId, us
     }),
   ]).then(() => newReview));
 
+module.exports.findUserById = findUserById;
 module.exports.getAllMovies = getAllMovies;
 module.exports.findMovie = findMovie;
 module.exports.createMovie = createMovie;
