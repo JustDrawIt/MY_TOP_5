@@ -7,7 +7,7 @@
     <div><b>{{$ctrl.movie.director[0].name}}</b></div>
     <div>{{$ctrl.movie.releaseDate.slice(0,4)}}</div>
     <div>{{'"' + $ctrl.movie.overview + '"'}}</div>
-    <a ng-if="$ctrl.movie.hasMedia" class="waves-effect waves-light btn blue modal-trigger" ng-href="{{'#modal'+$ctrl.movie.modalRef}}">Media</a>
+    <a ng-if="$ctrl.movie.hasMedia" class="waves-effect waves-light btn blue" ng-click="$ctrl.movie.openModal()">Media</a>
     <button type="button" class="btn blue waves-effect waves-light z-depth-2" ng-click="$ctrl.sendMovie($ctrl.movie)">Add to my shelf</button>
   </div>  
   <!-- Modal Structure -->
@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <a href="#" class="modal-close waves-effect waves-green btn-flat">Back to Results</a>
+      <a ng-click="$ctrl.movie.closeModal()" class="modal-close waves-effect waves-green btn-flat">Back to Results</a>
     </div>
   </div>
 </li>
