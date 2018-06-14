@@ -1,3 +1,6 @@
 <div>
-  <button ng-click="$ctrl.onClick()">Ima a button</button>
+  <a ng-if="!$ctrl.authenticated" href="/auth/google">
+      <button ng-click="$ctrl.onClick()">signup</button>
+  </a>
+  <button ng-click="$ctrl.onClick()">login</button>
 </div>
