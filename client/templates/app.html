@@ -17,5 +17,8 @@
     </div>
 </div>
 <div ng-if="!$ctrl.authenticated">
-    <login authenticated="$ctrl.authenticated"></login>
+    <login 
+        authenticated = "$ctrl.authenticated"
+        change-auth = "$ctrl.changeAuth"
+    ></login>
 </div>
