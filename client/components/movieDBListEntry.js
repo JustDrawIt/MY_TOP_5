@@ -6,10 +6,17 @@ angular.module('movie-shelf')
     },
     controller: function controller() {
       $(document).ready(() => {
+        const elems = document.querySelectorAll('.slider');
         $('.modal').modal();
+        $('.slider').slider();
+        elems.forEach((elem) => {
+          const instance = M.Slider.getInstance(elem);
+          instance.pause();
+        });
       });
       this.sendMovie = (movie) => {
-        this.pushit(movie);
+        console.log(movie);
+        // this.pushit(movie);
       };
     },
     templateUrl: '/templates/movieDBListEntry.html',
