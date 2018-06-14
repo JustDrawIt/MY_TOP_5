@@ -33,5 +33,16 @@ describe('users', () => {
           done();
         });
     });
+
+    it('should return error if there is no user found', (done) => {
+      axios.get(`${endpoint}/not-a-real-user`)
+        .catch((error) => {
+          expect(error).to.exist;
+          expect(error.response.status).to.equal(500);
+          expect(error.response.data.error).to.be.a('string');
+
+          done();
+        });
+    });
   });
 });
