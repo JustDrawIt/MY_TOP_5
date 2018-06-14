@@ -1,8 +1,8 @@
 {
-  "name": "my_top_5",
+  "name": "movie-shelf",
   "version": "1.0.0",
-  "description": "minimum viable product my top 5",
-  "main": "server.js",
+  "description": "Legacy project",
+  "main": "server/server.js",
   "scripts": {
     "test": "mocha server/spec/",
     "start": "node server/server.js",
@@ -10,38 +10,37 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gsveitch/MY_TOP_5.git"
+    "url": "git+https://github.com/JustDrawIt/Movie-Shelf.git"
   },
   "keywords": [
-    "mvp"
+    "mvp",
+    "legacy"
   ],
-  "author": "gsveitch",
-  "license": "ISC",
+  "author": "JustDrawIt",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gsveitch/MY_TOP_5/issues"
+    "url": "https://github.com/JustDrawIt/Movie-Shelf/issues"
   },
-  "homepage": "https://github.com/gsveitch/MY_TOP_5#readme",
+  "homepage": "https://github.com/JustDrawIt/Movie-Shelf#readme",
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
-    "bootstrap": "^3.3.7",
-    "chai": "^4.1.2",
     "cookie-session": "^2.0.0-beta.3",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
-    "jquery": "^3.2.1",
-    "mocha": "^5.2.0",
+    "mongoose": "^5.1.5",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.9.1",
-    "mongoose": "^4.13.14",
+    "mocha": "^5.2.0",
     "nodemon": "^1.13.3"
   }
 }
