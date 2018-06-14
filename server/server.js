@@ -17,6 +17,14 @@ app.use(bodyParser.urlencoded({ extended: 'true' }));
 app.use(bodyParser.json());
 passportSetup(app);
 
+app.get('/users/:userId', (req, res) => {
+  const { userId } = req.params;
+
+  db.findUserById(userId)
+    .then(user => res.send({ data: user, error: null }))
+    .catch(error => res.status(500).send({ error: error.message }));
+});
+
 app.get('/movies', (req, res) => {
   const { movieId } = req.query;
 
