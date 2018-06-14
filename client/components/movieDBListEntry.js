@@ -5,6 +5,9 @@ angular.module('movie-shelf')
       pushit: '<',
     },
     controller: function controller() {
+      $(document).ready(() => {
+        $('.modal').modal();
+      });
       this.sendMovie = (movie) => {
         this.pushit(movie);
       };
