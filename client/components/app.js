@@ -31,6 +31,7 @@ angular.module('movie-shelf')
           }
           TheMovieDB.searchVideos(id)
             .then((videos) => {
+              const youtubeVids = videos.filter(video => video.site === 'YouTube');
               movieDetails.videos = videos;
             })
             .catch((err) => { console.log(err); });
