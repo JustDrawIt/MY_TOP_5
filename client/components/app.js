@@ -12,7 +12,6 @@ angular.module('movie-shelf')
       this.getDetailsFromIDs = (movies) => {
         // reset moviesDB state;
         this.moviesDB = [];
-        let modalRef = 0;
         // push each movieDetail to moviesDB state
         movies.forEach((movie) => {
           const {
@@ -40,8 +39,6 @@ angular.module('movie-shelf')
                 video.embededLink = $sce.trustAsResourceUrl(`https://www.youtube.com/embed/${video.key}`);
               });
               movieDetails.videos = youtubeVids;
-              modalRef += 1;
-              movieDetails.modalRef = modalRef;
             })
             .catch((err) => { console.log(err); });
           TheMovieDB.searchCast(id)
