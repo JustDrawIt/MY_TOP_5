@@ -14,6 +14,19 @@ const createMovie = (movieId) => {
 };
 const removeMovie = movieId => Movie.findOneAndRemove({ movieId }).exec();
 
+const unfavoriteMovie = (movieId, userId) => findUserById(userId)
+  .then((user) => {
+    const favoritedIndex = user.favorites.findIndex(movie => movie.movieId === movieId);
+
+    if (favoritedIndex === -1) return Promise.reject(new Error('Cannot unfavorite movie that is not already favorited'));
+    user.favorites.splice(favoritedIndex, 1);
+    return user.save();
+  })
+  .then(() => findMovie(movieId))
+  .then((movie) => {
+    movie.favorites -= 1;
+    return movie.save();
+  });
 const favoriteMovie = (movieId, userId) => findUserById(userId)
   .then((user) => {
     const hasAlreadyFavorited = !!user.favorites.find(movie => movie.movieId === movieId);
@@ -56,6 +69,7 @@ module.exports.findMovie = findMovie;
 module.exports.createMovie = createMovie;
 module.exports.removeMovie = removeMovie;
 module.exports.favoriteMovie = favoriteMovie;
+module.exports.unfavoriteMovie = unfavoriteMovie;
 module.exports.getReview = getReview;
 module.exports.getAllMovieReviews = getAllMovieReviews;
 module.exports.getAllUserReviews = getAllUserReviews;
