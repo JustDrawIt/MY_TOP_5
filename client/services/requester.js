@@ -34,6 +34,18 @@ angular.module('movie-shelf')
         });
     });
 
+    this.getUpcoming = () => new Promise((resolve, reject) => {
+      $http.get('/upcoming')
+        .then(response => resolve(response.data))
+        .catch(err => reject(err));
+    });
+
+    this.getNowPlaying = () => new Promise((resolve, reject) => {
+      $http.get('/nowPlaying')
+        .then(response => resolve(response.data))
+        .catch(err => reject(err));
+    });
+
     this.searchCast = id => new Promise((resolve, reject) => {
       $http.get('/searchCast', { params: { id } })
         .then((response) => {
