@@ -2,7 +2,7 @@ require('dotenv').config();
 const axios = require('axios');
 const { expect } = require('chai');
 
-const { Movie } = require('../database');
+const { Movie, User } = require('../database');
 
 const { PORT } = process.env;
 const endpoint = `http://localhost:${PORT}/movies`;
@@ -10,17 +10,8 @@ const endpoint = `http://localhost:${PORT}/movies`;
 describe('movies', () => {
   const movieId = 4545;
 
-  beforeEach((done) => {
-    new Movie({ movieId })
-      .save()
-      .then(() => done());
-  });
-
-  afterEach((done) => {
-    Movie.findOneAndRemove({ movieId })
-      .exec()
-      .then(() => done());
-  });
+  beforeEach(() => new Movie({ movieId }).save());
+  afterEach(() => Movie.findOneAndRemove({ movieId }).exec());
 
   describe('on get', () => {
     it('returns all the movies', (done) => {
@@ -103,6 +94,38 @@ describe('movies', () => {
     it('returns an error movieId is already used', (done) => {
       payload.movieId = movieId;
       axios.post(endpoint, payload)
+        .catch((error) => {
+          expect(error).to.exist;
+          expect(error.response.status).to.equal(500);
+          expect(error.response.data.error).to.be.a('string');
+
+          done();
+        });
+    });
+  });
+
+  describe('on post to /:movieId/favorite', () => {
+    const username = 'Bob';
+    let userMongoId;
+
+    beforeEach(() => new User({ username }).save().then(user => userMongoId = user._id.toString()));
+    afterEach(() => User.findByIdAndRemove(userMongoId));
+
+    it('updates the movie favorites', (done) => {
+      axios.post(`${endpoint}/${movieId}/favorite`, { userId: userMongoId })
+        .then((response) => {
+          expect(response.status).to.equal(200);
+          expect(response.data.data).to.be.an('object');
+          expect(response.data.data.movieId).to.equal(movieId);
+          expect(response.data.data.favorites).to.equal(1);
+
+          done();
+        });
+    });
+
+    it('returns error if already favorited', (done) => {
+      axios.post(`${endpoint}/${movieId}/favorite`, { userId: userMongoId, movieId })
+        .then(() => axios.post(endpoint, { userId: userMongoId }))
         .catch((error) => {
           expect(error).to.exist;
           expect(error.response.status).to.equal(500);
