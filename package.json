@@ -1,12 +1,12 @@
 {
   "name": "movie-shelf",
   "version": "1.0.0",
-  "description": "Legacy project",
-  "main": "server/server.js",
+  "description": "This is a legacy project to improve on gsveitch's \"My Top 5\"",
+  "main": "server/index.js",
   "scripts": {
     "test": "mocha server/spec/",
-    "start": "node server/server.js",
-    "dev": "nodemon server/server.js"
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js"
   },
   "repository": {
     "type": "git",
