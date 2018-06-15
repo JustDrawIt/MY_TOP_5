@@ -18,13 +18,13 @@ angular.module('movie-shelf')
     });
 
     this.getUpcoming = () => new Promise((resolve, reject) => {
-      $http.get('/upcoming')
+      $http.get('/search/upcoming')
         .then(response => resolve(response.data))
         .catch(err => reject(err));
     });
 
     this.getNowPlaying = () => new Promise((resolve, reject) => {
-      $http.get('/nowPlaying')
+      $http.get('/search/nowPlaying')
         .then(response => resolve(response.data))
         .catch(err => reject(err));
     });
