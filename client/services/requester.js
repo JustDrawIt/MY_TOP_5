@@ -44,7 +44,6 @@ angular.module('movie-shelf')
       $http
         .get('/favorite')
         .then(({ data }) => {
-          console.log(data);
           if (callback) {
             callback(data);
           }
@@ -60,7 +59,6 @@ angular.module('movie-shelf')
           message, movieId, userId,
         })
         .then(({ data }) => {
-          console.log(data);
           if (callback) {
             callback(data);
           }
@@ -75,7 +73,6 @@ angular.module('movie-shelf')
       return $http
         .post(`/movies/${movieId}/favorite`, {  userId })
         .then(({ data }) => {
-          console.log(data);
           if (callback) {
             callback(data);
           }

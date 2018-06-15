@@ -24,15 +24,11 @@ angular.module('movie-shelf')
       };
 
       this.sendMovie = (movie) => {
-        console.log(movie);
-        console.log(this.userid);
         const movieId = movie.id;
-        console.log(this.userid._id);
         const userId = this.userid._id;
         this.pushit(movie);
         server.addFavorite(movieId, userId)
           .then((data) => {
-            console.log(data);
           })
           .catch((err) => {
             console.error(err);
