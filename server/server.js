@@ -76,6 +76,10 @@ app.get('/searchCast', (req, res) => {
     .catch(error => res.status(500).send({ error: error.message }));
 });
 
+app.get('/nowPlaying', (req, res) => {
+  console.log(req, res);
+});
+
 app.post('/favorite', (req, res) => {
   const { userId, movieId } = req.body;
 
