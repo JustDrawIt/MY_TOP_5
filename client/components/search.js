@@ -5,15 +5,11 @@ angular.module('movie-shelf')
       result: '<',
       getDetails: '<',
     },
-    controller: function controller(itunes, TheMovieDB) {
+    controller: function controller(TheMovieDB) {
       this.onClick = (query) => {
         const ctrl = this;
-        itunes.search(query, this.result);
         TheMovieDB.search(query)
-          .then((result) => {
-            const { results } = result;
-            ctrl.getDetails(results);
-          })
+          .then(data => ctrl.getDetails(data))
           .catch((err) => { console.log(err); });
       };
     },
