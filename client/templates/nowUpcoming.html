@@ -1,0 +1,10 @@
+<div>
+    <h4> Upcoming </h4>
+    <ul>
+        <movie-entry ng-repeat="movie in $ctrl.upcoming" movie="movie" />
+    </ul>
+    <h4> Now Playing </h4>
+    <ul>
+        <movie-entry ng-repeat="movie in $ctrl.nowPlaying" movie="movie"  />
+    </ul>
+</div>
