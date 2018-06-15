@@ -48,7 +48,7 @@ angular.module('movie-shelf')
   .service('server', function ($http) {
     this.getShelf = (callback) => {
       $http
-        .get('/shelf')
+        .get('/favorite')
         .then(({ data }) => {
           console.log(data);
           if (callback) {
@@ -60,9 +60,9 @@ angular.module('movie-shelf')
         });
     };
 
-    this.addMovie = (movie, callback) => {
+    this.addReview = (movie, callback) => {
       $http
-        .post('/shelf', { params: { movie } })
+        .post('/reviews', { params: { movie } })
         .then(({ data }) => {
           console.log(data);
           if (callback) {
