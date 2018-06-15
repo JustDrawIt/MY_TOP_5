@@ -9,7 +9,7 @@ angular.module('movie-shelf')
       this.onClick = (query) => {
         const ctrl = this;
         TheMovieDB.search(query)
-          .then(data => ctrl.getDetails(data))
+          .then(data => ctrl.getDetails(data, 'moviesDB', 'viewSearched'))
           .catch((err) => { console.log(err); });
       };
     },
