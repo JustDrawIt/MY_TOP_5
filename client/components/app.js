@@ -37,8 +37,6 @@ angular.module('movie-shelf')
         this[view] = true;
         // reset moviesDB state;
         this.moviesDB = [];
-        // push each movieDetail to moviesDB state
-        console.log(movies);
         movies.forEach((movie) => {
           const {
             id,
