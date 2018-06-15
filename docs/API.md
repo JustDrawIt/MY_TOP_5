@@ -223,7 +223,7 @@
   #### Query
   - userId: __String__
   ```http
-  &userId=5b22931560ae4d29aac43a72
+  ?userId=5b22931560ae4d29aac43a72
   ```
   #### Response
   - data: __Boolean__
