@@ -78,10 +78,13 @@ app.get('/searchCast', (req, res) => {
 
 app.get('/nowPlaying', (req, res) => {
   console.log(req, res);
+  
 });
 
 app.get('/upcoming', (req, res) => {
-  console.log(req, res);
+  axios.get(`${MOVIE_API}/movie/upcoming?api_key=${MOVIEDB}&language=en-US&page=1`)
+    .then(response => res.status(200).send(response.data))
+    .catch(error => res.status(500).send({ error: error.message }));
 });
 
 
