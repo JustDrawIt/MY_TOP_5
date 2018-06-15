@@ -55,7 +55,10 @@ app.get('/search', (req, res) => {
   const { query } = req.query;
 
   axios.get(`${MOVIE_API}/search/movie?api_key=${MOVIEDB}&query=${query}`)
-    .then(response => res.status(200).send(response.data))
+    .then((response) => {
+      const { data } = response;
+      res.status(200).send(data.results.slice(0, 15));
+    })
     .catch(error => res.status(500).send({ error: error.message }));
 });
 
