@@ -8,6 +8,17 @@ angular.module('movie-shelf')
         .catch(err => reject(err));
     });
 
+    this.getMovie = (movieId) => {
+      return $http
+        .get(`/search/movies?id=${movieId}`)
+        .then(({ data }) => {
+          return data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
     this.searchVideos = id => new Promise((resolve, reject) => {
       $http.get('/search/video', { params: { id } })
         .then((response) => {
@@ -40,19 +51,6 @@ angular.module('movie-shelf')
     });
   })
   .service('server', function ($http) {
-    this.getShelf = (callback) => {
-      $http
-        .get('/favorite')
-        .then(({ data }) => {
-          if (callback) {
-            callback(data);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-
     this.addReview = (message, movieId, userId, callback) => {
       return $http
         .post('/reviews', {
