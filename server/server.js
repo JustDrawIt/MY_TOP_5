@@ -1,21 +1,16 @@
-require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const axios = require('axios');
-const passport = require('passport');
-const passportSetup = require('./passportSetup');
 
-const db = require('./database/helpers');
+const setupPassport = require('./passport');
+const setupRouters = require('./routers');
 
 const app = express();
-const { PORT, MOVIEDB } = process.env;
-const MOVIE_API = 'https://api.themoviedb.org/3';
 
-app.use(express.static('client'));
-app.use(express.static('node_modules'));
 app.use(bodyParser.urlencoded({ extended: 'true' }));
 app.use(bodyParser.json());
-passportSetup(app);
+setupPassport(app);
+app.use(express.static('client'));
+
 
 app.get('/users/:userId', (req, res) => {
   const { userId } = req.params;
@@ -161,9 +156,7 @@ app.get('/auth/google/redirect', passport.authenticate('google'), (req, res) => 
   res.redirect('/');
 });
 
-app.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect('/');
-});
+setupPassport(app);
+setupRouters(app);
 
-app.listen(PORT, error => console.log(error || `Listening on port ${PORT}`));
+module.exports.server = app;

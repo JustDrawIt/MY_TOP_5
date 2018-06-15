@@ -1,15 +1,12 @@
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const { User } = require('./database/index');
 const session = require('cookie-session');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
+const { User } = require('./database/models');
+const { SESSION_OPTS, GOOGLE_AUTH } = require('./config');
 
 module.exports = (app) => {
-  app.use(session({
-    secret: 'yahamamam',
-    cookie: {
-      maxAge: 86400000, // 1 day
-    },
-  }));
+  app.use(session(SESSION_OPTS));
   app.use(passport.initialize());
   app.use(passport.session());
 
@@ -22,12 +19,10 @@ module.exports = (app) => {
 
   passport.use(new GoogleStrategy({
     callbackURL: '/auth/google/redirect',
-    clientID: process.env.ClientID,
-    clientSecret: process.env.Secret,
+    clientID: GOOGLE_AUTH.CLIENT_ID,
+    clientSecret: GOOGLE_AUTH.CLIENT_SECRET,
   }, (accessToken, refreshToken, profile, done) => {
-    User.findOne({
-      googleId: profile.id,
-    })
+    User.findOne({ googleId: profile.id })
       .then(currentUser => currentUser || new User({
         username: profile.displayName,
         googleId: profile.id,
