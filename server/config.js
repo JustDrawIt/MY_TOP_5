@@ -1,12 +1,10 @@
-const dotenv = require('dotenv');
+require('dotenv').config();
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 const PROTOCAL = IS_PRODUCTION ? process.env.PROTOCAL : 'http';
 const HOST = IS_PRODUCTION ? process.env.HOST : 'localhost';
 const PORT = process.env.PORT || 8080;
 const URL = `${PROTOCAL}://${HOST}:${PORT}`;
-
-dotenv.config();
 
 module.exports = {
   PROTOCAL,
