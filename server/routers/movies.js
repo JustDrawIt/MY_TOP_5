@@ -1,10 +1,13 @@
 const express = require('express');
+const axios = require('../axios');
 const db = require('../database/helpers');
 
 const movies = express.Router();
 
 movies.get('/', (req, res) => {
-  const { movieId } = req.query;
+  let { movieId } = req.query;
+
+  movieId = Number(movieId);
 
   (movieId ? db.findMovie(movieId) : db.getAllMovies())
     .then(data => res.send({ data, error: null }))
@@ -12,7 +15,9 @@ movies.get('/', (req, res) => {
 });
 
 movies.post('/', (req, res) => {
-  const { movieId } = req.body;
+  let { movieId } = req.body;
+
+  movieId = Number(movieId);
 
   !movieId
     ? res.status(400).send({ error: 'Expected body to include movieId' })
@@ -22,7 +27,9 @@ movies.post('/', (req, res) => {
 });
 
 movies.delete('/', (req, res) => {
-  const { movieId } = req.body;
+  let { movieId } = req.body;
+
+  movieId = Number(movieId);
 
   db.removeMovie(movieId)
     .then(() => res.send({ data: true, error: null }))
@@ -30,19 +37,25 @@ movies.delete('/', (req, res) => {
 });
 
 movies.post('/:movieId/favorite', (req, res) => {
-  const { movieId } = req.params;
   const { userId } = req.body;
+  let { movieId } = req.params;
 
-  db.favoriteMovie(movieId, userId)
+  movieId = Number(movieId);
+
+  axios.get(`/movies?movieId=${movieId}`)
+    .catch(() => axios.post('http://localhost:8080/movies', { movieId }))
+    .then(() => db.favoriteMovie(movieId, userId))
     .then(movie => res.send({ data: movie, error: null }))
     .catch(error => res.status(500).send({ error: error.message }));
 });
 
 movies.delete('/:movieId/favorite', (req, res) => {
-  const { movieId } = req.params;
   const { userId } = req.query;
+  let { movieId } = req.params;
 
-  db.unfavoriteMovie(Number(movieId), userId)
+  movieId = Number(movieId);
+
+  db.unfavoriteMovie(movieId, userId)
     .then(() => res.send({ data: true, error: null }))
     .catch(error => res.status(500).send({ error: error.message }));
 });
