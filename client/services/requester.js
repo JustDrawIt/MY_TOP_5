@@ -86,12 +86,9 @@ angular.module('movie-shelf')
     };
 
     this.deleteMovie = (movieId, userId, callback) => {
-      $http({
+      return $http({
         method: 'DELETE',
-        url: `/movies/${movieId}/favorite?userid=${userId}`,
-        data: {
-          movieId: movie._id,
-        },
+        url: `/movies/${movieId}/favorite?userId=${userId}`,
         headers: {
           'Content-type': 'application/json;charset=utf-8',
         },

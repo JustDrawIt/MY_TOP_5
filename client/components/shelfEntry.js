@@ -33,8 +33,18 @@ angular.module('movie-shelf')
       };
 
       this.reMovie = (movie) => {
-        
+        const movieId = movie.id;
+        const userId = this.userid._id;
+        console.log(userId);
+        console.log(movieId);
         this.spliceit(movie);
+        server.deleteMovie(movieId, userId)
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
       };
     },
     templateUrl: '/templates/shelfEntry.html',
