@@ -72,9 +72,9 @@ angular.module('movie-shelf')
         });
       };
 
-      // this.pushit = (movie) => {
-      //   this.shelf.unshift(movie);
-      // };
+      this.pushit = (movie) => {
+        this.shelf.unshift(movie);
+      };
 
       this.spliceit = (movie) => {
         const i = this.shelf.indexOf(movie);
