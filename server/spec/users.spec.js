@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { expect } = require('chai');
 
-const { User } = require('../database');
+const { User } = require('../database/models');
 
 const { PORT } = process.env;
 const endpoint = `http://localhost:${PORT}/users`;

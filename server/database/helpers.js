@@ -1,4 +1,4 @@
-const { Movie, User, Review } = require('./');
+const { Movie, User, Review } = require('./models');
 
 const findUserById = userId => User.findById(userId)
   .exec()
