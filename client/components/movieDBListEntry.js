@@ -5,22 +5,6 @@ angular.module('movie-shelf')
       movie: '<',
       pushit: '<',
     },
-<<<<<<< HEAD
-    controller: function controller(server) {
-      this.sendMovie = (movie) => {
-        console.log(this.userid, 'user');
-        console.log(movie, 'movie');
-        const userid = this.userid._id;
-        const movieid = movie.id;
-        this.pushit(movie);
-        server.addReview(userid, movieid)
-          .then((data) => {
-            console.log(data);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-=======
     controller: function controller($element) {
       const ctrl = this;
       let modalInstance = null;
@@ -43,7 +27,6 @@ angular.module('movie-shelf')
       this.sendMovie = (movie) => {
         console.log(movie);
         // this.pushit(movie);
->>>>>>> 17346086c22c16ab36ef2aba1530905ede4aa549
       };
     },
     templateUrl: '/templates/movieDBListEntry.html',
