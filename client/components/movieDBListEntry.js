@@ -31,7 +31,7 @@ angular.module('movie-shelf')
         console.log(this.userid._id);
         const userId = this.userid._id;
         this.pushit(movie);
-        server.addReview(movieId, userId)
+        server.addFavorite(movieId, userId)
           .then((data) => {
             console.log(data);
           })

@@ -24,7 +24,7 @@ angular.module('movie-shelf')
     });
 
     this.searchVideos = id => new Promise((resolve, reject) => {
-      $http.get('/searchVideo', { params: { id } })
+      $http.get('/search/video', { params: { id } })
         .then((response) => {
           // resolves an array of video reference objects
           resolve(response.data.results);
@@ -35,7 +35,7 @@ angular.module('movie-shelf')
     });
 
     this.searchCast = id => new Promise((resolve, reject) => {
-      $http.get('/searchCast', { params: { id } })
+      $http.get('/search/cast', { params: { id } })
         .then((response) => {
         // resolves an object with arrays on .cast and .crew  of objects containing data about the cast
           resolve(response.data);
@@ -60,7 +60,9 @@ angular.module('movie-shelf')
         });
     };
 
-    this.addReview = (movieId, userId, callback) => {
+    this.addReview = ()
+
+    this.addFavorite = (movieId, userId, callback) => {
       return $http
         .post(`/movies/${movieId}/favorite`, { params: { userId } })
         .then(({ data }) => {
