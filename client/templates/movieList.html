@@ -2,6 +2,6 @@
     <h4> Search results </h4>
     There are {{$ctrl.moviesDb.length}} flicks.
     <ul>
-        <movie-entry ng-repeat="movie in $ctrl.moviesDb" movie="movie" pushit="$ctrl.pushit" />
+        <movie-entry ng-repeat="movie in $ctrl.moviesDb" userid="$ctrl.userid" movie="movie" pushit="$ctrl.pushit" />
     </ul>
 </div>
