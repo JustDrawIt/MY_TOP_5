@@ -5,7 +5,6 @@ angular.module('movie-shelf')
       nowPlaying: '<',
     },
     controller: function controller() {
-      setInterval(() => { console.log(this.upcoming, this.nowPlaying); }, 5000);
     },
     templateUrl: '/templates/nowUpcoming.html',
   });
