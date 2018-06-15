@@ -1,6 +1,8 @@
 angular.module('movie-shelf')
   .component('nowUpcoming', {
     bindings: {
+      userid: '<',
+      pushit: '<',
       upcoming: '<',
       nowPlaying: '<',
     },

@@ -15,6 +15,8 @@
             ></movie-list>
             <now-upcoming
                 ng-if="$ctrl.viewNewMovies"
+                userid="$ctrl.user"
+                pushit="$ctrl.pushit"
                 now-playing="$ctrl.nowPlaying"
                 upcoming="$ctrl.upcoming"
             ></now-upcoming>

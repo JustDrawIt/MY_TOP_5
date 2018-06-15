@@ -85,10 +85,10 @@ angular.module('movie-shelf')
         });
     };
 
-    this.deleteMovie = (movie, callback) => {
+    this.deleteMovie = (movieId, userId, callback) => {
       $http({
         method: 'DELETE',
-        url: '/shelf',
+        url: `/movies/${movieId}/favorite?userid=${userId}`,
         data: {
           movieId: movie._id,
         },

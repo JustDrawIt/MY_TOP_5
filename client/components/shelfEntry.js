@@ -22,7 +22,6 @@ angular.module('movie-shelf')
         console.log(this.movie);
         const movieId = this.movie.id;
         const userid = this.userid._id;
-        console.log(this.userid);
 
         server.addReview(comment, movieId, userid)
           .then((data) => {
@@ -34,6 +33,7 @@ angular.module('movie-shelf')
       };
 
       this.reMovie = (movie) => {
+        
         this.spliceit(movie);
       };
     },
