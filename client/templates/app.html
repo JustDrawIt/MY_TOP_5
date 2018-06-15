@@ -9,7 +9,11 @@
                 movies-db="$ctrl.moviesDB"
                 pushit="$ctrl.pushit"
             ></movie-list>
-            <now-upcoming ng-if="$ctrl.viewNewMovies"></now-upcoming>
+            <now-upcoming
+                ng-if="$ctrl.viewNewMovies"
+                now-playing="$ctrl.nowPlaying"
+                upcoming="$ctrl.upcoming"
+            ></now-upcoming>
         </div>
         <div class="col s5">
             <shelf
