@@ -6,7 +6,6 @@ angular.module('movie-shelf')
       userid: '<',
     },
     controller(server) {
-      console.log(this.userid);
       this.comments = [];
       this.box = false;
 

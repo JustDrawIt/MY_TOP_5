@@ -60,9 +60,9 @@ angular.module('movie-shelf')
         });
     };
 
-    this.addReview = (movie, callback) => {
-      $http
-        .post('/reviews', { params: { movie } })
+    this.addReview = (movieId, userId, callback) => {
+      return $http
+        .post(`/movies/${movieId}/favorite`, { params: { userId } })
         .then(({ data }) => {
           console.log(data);
           if (callback) {
