@@ -60,11 +60,26 @@ angular.module('movie-shelf')
         });
     };
 
-    this.addReview = ()
+    this.addReview = (message, movieId, userId, callback) => {
+      return $http
+        .post('/reviews', {
+          message, movieId, userId,
+        })
+        .then(({ data }) => {
+          console.log(data);
+          if (callback) {
+            callback(data);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
 
     this.addFavorite = (movieId, userId, callback) => {
       return $http
-        .post(`/movies/${movieId}/favorite`, { params: { userId } })
+        .post(`/movies/${movieId}/favorite`, {  userId })
         .then(({ data }) => {
           console.log(data);
           if (callback) {
