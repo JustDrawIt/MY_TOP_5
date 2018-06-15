@@ -3,6 +3,7 @@ angular.module('movie-shelf')
     bindings: {
       authenticated: '<',
       changeAuth: '<',
+      userid: '<',
     },
     controller: function controller(checkAuth) {
       this.onClick = () => {

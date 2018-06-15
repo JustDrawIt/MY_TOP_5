@@ -10,6 +10,7 @@
             <movie-list
                 ng-if="$ctrl.viewSearched"
                 movies-db="$ctrl.moviesDB"
+                userid="$ctrl.user"
                 pushit="$ctrl.pushit"
             ></movie-list>
             <now-upcoming
@@ -20,6 +21,7 @@
         </div>
         <div class="col s5">
             <shelf
+                userid="$ctrl.user"
                 my-movies="$ctrl.shelf"
                 spliceit="$ctrl.spliceit"
             ></shelf>

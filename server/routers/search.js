@@ -32,4 +32,24 @@ search.get('/cast', (req, res) => {
     .catch(error => res.status(500).send({ error: error.message }));
 });
 
+search.get('/nowPlaying', (req, res) => {
+  axios.get(`${ENDPOINT}/movie/now_playing?api_key=${KEY}&language=en-US&page=1`)
+    .then((response) => {
+      const { data } = response;
+      res.status(200).send(data.results.slice(0, 15));
+    })
+    .catch(error => res.status(500).send({ error: error.message }));
+});
+
+search.get('/upcoming', (req, res) => {
+  axios.get(`${ENDPOINT}/movie/upcoming?api_key=${KEY}&language=en-US&page=1`)
+    .then((response) => {
+      const { data } = response;
+      const dateToday = new Date();
+      const upcomingMovies = data.results.filter(movie => new Date(movie.release_date) > dateToday);
+      res.status(200).send(upcomingMovies);
+    })
+    .catch(error => res.status(500).send({ error: error.message }));
+});
+
 module.exports = search;

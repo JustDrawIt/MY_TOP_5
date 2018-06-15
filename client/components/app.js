@@ -4,8 +4,12 @@ angular.module('movie-shelf')
       this.movies = [];
       this.moviesDB = [];
       this.shelf = [];
+<<<<<<< HEAD
       this.upcoming = [];
       this.nowPlaying = [];
+=======
+      this.user = null;
+>>>>>>> 615d78f2a63acb458068fc1e9fd7243cad697730
 
       this.searchResults = (data) => {
         this.movies = data.results;
@@ -15,6 +19,7 @@ angular.module('movie-shelf')
 
       this.changeAuth = (data) => {
         if (data.user) {
+          this.user = data.user;
           this.authenticated = true;
         }
         return this.authenticated;
