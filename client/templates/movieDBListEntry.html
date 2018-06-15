@@ -11,7 +11,7 @@
     <button type="button" class="btn blue waves-effect waves-light z-depth-2" ng-click="$ctrl.sendMovie($ctrl.movie)">Add to my shelf</button>
   </div>  
   <!-- Modal Structure -->
-  <div ng-if="$ctrl.movie.hasMedia" ng-attr-id="{{'modal'+$ctrl.movie.modalRef}}" class="modal">
+  <div ng-if="$ctrl.movie.hasMedia" class="modal">
     <div class="modal-content">
       <h4>Video Media</h4>
       <div class="slider">
