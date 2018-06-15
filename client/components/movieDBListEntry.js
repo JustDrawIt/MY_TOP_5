@@ -16,7 +16,6 @@ angular.module('movie-shelf')
         modalInstance = M.Modal.getInstance(modalElem);
         modalInstance.open();
         sliderInstance.pause();
-        console.log('open', $element.find('.modal')[0]);
       };
       ctrl.movie.closeModal = () => {
         modalInstance.close();
