@@ -23,7 +23,7 @@ angular.module('movie-shelf')
         // reset moviesDB state;
         this.moviesDB = [];
         // push each movieDetail to moviesDB state
-        movies.slice(0, 15).forEach((movie) => {
+        movies.forEach((movie) => {
           const {
             id,
             title,
