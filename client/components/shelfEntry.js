@@ -3,10 +3,10 @@ angular.module('movie-shelf')
     bindings: {
       movie: '<',
       spliceit: '<',
-      user: '<',
+      userid: '<',
     },
     controller(server) {
-      console.log(this.user);
+      console.log(this.userid);
       this.comments = [];
       this.box = false;
 

@@ -16,8 +16,6 @@ angular.module('movie-shelf')
         if (data.user) {
           this.user = data.user;
           this.authenticated = true;
-          console.log(this.user, 'this.user');
-          console.log(data.user, 'user data');
         }
         return this.authenticated;
       };
