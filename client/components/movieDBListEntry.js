@@ -7,7 +7,7 @@ angular.module('movie-shelf')
     controller: function controller($element) {
       const ctrl = this;
       let modalInstance = null;
-      ctrl.movie.openModal = () => { 
+      ctrl.movie.openModal = () => {
         $('.modal').modal();
         $('.slider').slider();
         const sliderElem = $element.find('.slider')[0];
@@ -22,7 +22,7 @@ angular.module('movie-shelf')
         modalInstance.close();
         modalInstance.destroy();
       };
-      
+
       this.sendMovie = (movie) => {
         console.log(movie);
         // this.pushit(movie);
