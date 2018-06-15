@@ -4,8 +4,11 @@ const db = require('../database/helpers');
 const reviews = express.Router();
 
 reviews.get('/', (req, res) => {
-  const { movieId, userId } = req.query;
+  const { userId } = req.query;
+  let { movieId } = req.query;
   let query;
+
+  movieId = Number(movieId);
 
   if (movieId) {
     query = db.getAllMovieReviews(movieId);
@@ -29,7 +32,10 @@ reviews.get('/:reviewId', (req, res) => {
 });
 
 reviews.post('/', (req, res) => {
-  const { movieId, userId, message } = req.body;
+  const { userId, message } = req.body;
+  let { movieId } = req.body;
+
+  movieId = Number(movieId);
 
   db.addReview({ movieId, userId, message })
     .then(movie => res.send({ data: movie, error: null }))
