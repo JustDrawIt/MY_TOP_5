@@ -84,7 +84,12 @@ app.get('/nowPlaying', (req, res) => {
 
 app.get('/upcoming', (req, res) => {
   axios.get(`${MOVIE_API}/movie/upcoming?api_key=${MOVIEDB}&language=en-US&page=1`)
-    .then(response => res.status(200).send(response.data))
+    .then((response) => {
+      const { data } = response;
+      const dateToday = new Date();
+      const upcomingMovies = data.results.filter(movie => new Date(movie.release_date) > dateToday);
+      res.status(200).send(upcomingMovies);
+    })
     .catch(error => res.status(500).send({ error: error.message }));
 });
 
