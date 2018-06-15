@@ -36,9 +36,7 @@ angular.module('movie-shelf')
         // resolves an object with arrays on .cast and .crew  of objects containing data about the cast
           resolve(response.data);
         })
-        .catch((err) => {
-          reject(err);
-        });
+        .catch(err => reject(err));
     });
   })
   .service('server', function ($http) {
