@@ -18,8 +18,15 @@ angular.module('movie-shelf')
         return this.authenticated;
       };
 
+      this.handleNewUpcoming = (movies) => {
+        this.viewSearched = false;
+        this.viewNewMovies = true;
+        console.log(movies);
+      };
 
       this.getDetailsFromIDs = (movies) => {
+        this.viewSearched = true;
+        this.viewNewMovies = false;
         // reset moviesDB state;
         this.moviesDB = [];
         // push each movieDetail to moviesDB state
