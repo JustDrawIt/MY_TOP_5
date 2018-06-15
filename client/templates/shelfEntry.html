@@ -1,7 +1,8 @@
 <li class="video-list-entry media">
     <div class="media-left">
-        <img class="media-object" ng-src="{{$ctrl.movie.artworkUrl100}}" />
+        <img class="media-object" ng-src="{{$ctrl.movie.posterUrl}}" />
     </div>
+    
     <div class="media-body">
         <h3>{{$ctrl.movie.trackName}}</h3>
         <button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.reMovie($ctrl.movie)">Take off shelf</button>

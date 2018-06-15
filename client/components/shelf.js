@@ -1,6 +1,7 @@
 angular.module('movie-shelf')
   .component('shelf', {
     bindings: {
+      userid: '<',
       myMovies: '<',
       spliceit: '<',
     },

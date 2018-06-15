@@ -1,13 +1,14 @@
 angular.module('movie-shelf')
   .component('movieEntry', {
     bindings: {
+      userid: '<',
       movie: '<',
       pushit: '<',
     },
-    controller: function controller($element) {
+    controller: function controller($element, server) {
       const ctrl = this;
       let modalInstance = null;
-      ctrl.movie.openModal = () => { 
+      ctrl.movie.openModal = () => {
         $('.modal').modal();
         $('.slider').slider();
         const sliderElem = $element.find('.slider')[0];
@@ -22,10 +23,21 @@ angular.module('movie-shelf')
         modalInstance.close();
         modalInstance.destroy();
       };
-      
+
       this.sendMovie = (movie) => {
         console.log(movie);
-        // this.pushit(movie);
+        console.log(this.userid);
+        const movieId = movie.id;
+        console.log(this.userid._id);
+        const userId = this.userid._id;
+        this.pushit(movie);
+        server.addFavorite(movieId, userId)
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
       };
     },
     templateUrl: '/templates/movieDBListEntry.html',

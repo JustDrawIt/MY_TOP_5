@@ -4,6 +4,7 @@
     <div class="row">
         <div class="col s7">
             <movie-list
+                userid="$ctrl.user"
                 movies="$ctrl.movies" movies-db="$ctrl.moviesDB"
                 pushit="$ctrl.pushit"
             ></movie-list>
@@ -11,6 +12,7 @@
         <div class="col s5">
             TOP RATED MOVIES
             <shelf
+                userid="$ctrl.user"
                 my-movies="$ctrl.shelf"
                 spliceit="$ctrl.spliceit"
             ></shelf>
