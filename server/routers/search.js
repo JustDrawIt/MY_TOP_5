@@ -9,7 +9,7 @@ search.get('/', (req, res) => {
   const { query } = req.query;
 
   axios.get(`${ENDPOINT}/search/movie?api_key=${KEY}&query=${query}`)
-    .then(response => res.status(200).send(response.data))
+    .then(response => res.status(200).send(response.data.results.slice(0, 15)))
     .catch(error => res.status(500).send({ error: error.message }));
 });
 
