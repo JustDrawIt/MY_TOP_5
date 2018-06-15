@@ -4,12 +4,9 @@ angular.module('movie-shelf')
       this.movies = [];
       this.moviesDB = [];
       this.shelf = [];
-<<<<<<< HEAD
       this.upcoming = [];
       this.nowPlaying = [];
-=======
       this.user = null;
->>>>>>> 615d78f2a63acb458068fc1e9fd7243cad697730
 
       this.searchResults = (data) => {
         this.movies = data.results;
@@ -41,6 +38,7 @@ angular.module('movie-shelf')
         // reset moviesDB state;
         this.moviesDB = [];
         // push each movieDetail to moviesDB state
+        console.log(movies);
         movies.forEach((movie) => {
           const {
             id,
