@@ -2,7 +2,7 @@ const passport = require('passport');
 const session = require('cookie-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-const { User } = require('./database');
+const { User } = require('./database/models');
 const { SESSION_OPTS, GOOGLE_AUTH } = require('./config');
 
 module.exports = (app) => {
