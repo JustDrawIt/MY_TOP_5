@@ -16,6 +16,8 @@
     1. [/movies](#post-movies)
     1. [/favorite](#post-favorite)
     1. [/reviews](#post-reviews)
+1. [DELETE](#delete)
+    1. [/favorite](#delete-favoriteuseridmovieid)
 
 ---
 ## Schema
@@ -211,6 +213,28 @@
   ```json
   {
     "data": {...},
+    "error": null
+  }
+  ```
+
+---
+## DELETE
+
+* ### DELETE /favorite?userId=&movieId=
+  > Deletes a user's favorite
+  #### Query
+  - movieId: __Number__
+  - userId: __String__
+  ```http
+  ?movieId=213344
+  &userId=5b22931560ae4d29aac43a72
+  ```
+  #### Response
+  - data: __Boolean__
+  - error: __Null | String__
+  ```json
+  {
+    "data": true,
     "error": null
   }
   ```

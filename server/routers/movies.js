@@ -38,4 +38,13 @@ movies.post('/:movieId/favorite', (req, res) => {
     .catch(error => res.status(500).send({ error: error.message }));
 });
 
+movies.delete('/:movieId/favorite', (req, res) => {
+  const { movieId } = req.params;
+  const { userId } = req.query;
+
+  db.unfavoriteMovie(Number(movieId), userId)
+    .then(() => res.send({ data: true, error: null }))
+    .catch(error => res.status(500).send({ error: error.message }));
+});
+
 module.exports = movies;
