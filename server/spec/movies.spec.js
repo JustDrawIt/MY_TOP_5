@@ -1,8 +1,7 @@
-require('dotenv').config();
 const axios = require('axios');
 const { expect } = require('chai');
 
-const { Movie } = require('../database');
+const { Movie, User } = require('../database/models');
 
 const { PORT } = process.env;
 const endpoint = `http://localhost:${PORT}/movies`;
@@ -10,17 +9,8 @@ const endpoint = `http://localhost:${PORT}/movies`;
 describe('movies', () => {
   const movieId = 4545;
 
-  beforeEach((done) => {
-    new Movie({ movieId })
-      .save()
-      .then(() => done());
-  });
-
-  afterEach((done) => {
-    Movie.findOneAndRemove({ movieId })
-      .exec()
-      .then(() => done());
-  });
+  beforeEach(() => new Movie({ movieId }).save());
+  afterEach(() => Movie.findOneAndRemove({ movieId }).exec());
 
   describe('on get', () => {
     it('returns all the movies', (done) => {
@@ -116,7 +106,7 @@ describe('movies', () => {
   describe('on delete', () => {
     it('removes a movie', () => {
       axios.delete(endpoint, { movieId })
-        .then((response) => {
+      .then((response) => {
           expect(response.status).to.equal(200);
           expect(response.data.error).to.be.null;
           expect(response.data.data).to.be.true;
@@ -124,6 +114,68 @@ describe('movies', () => {
         .then(() => Movie.findOne({ movieId }).exec())
         .then((movie) => {
           expect(movie).to.be.null;
+        });
+    });
+  });
+});
+
+describe('/:movieId/favorite', () => {
+  const movieId = 44444;
+  const username = 'Bob';
+  let movieMongoId = null;
+  let userMongoId = null;
+
+  beforeEach(() => Promise.all([
+    new Movie({ movieId }).save(),
+    new User({ username }).save(),
+  ]).then(([movie, user]) => {
+    movieMongoId = movie._id.toString();
+    userMongoId = user._id.toString();
+  }));
+
+  afterEach(() => Promise.all([
+    Movie.findByIdAndRemove(movieMongoId),
+    User.findByIdAndRemove(userMongoId),
+  ]));
+
+  describe('on post', () => {
+    it('updates the movie favorites', (done) => {
+      axios.post(`${endpoint}/${movieId}/favorite`, { userId: userMongoId })
+        .then((response) => {
+          expect(response.status).to.equal(200);
+          expect(response.data.data).to.be.an('object');
+          expect(response.data.data.movieId).to.equal(movieId);
+          expect(response.data.data.favorites).to.equal(1);
+
+          done();
+        });
+    });
+
+    it('returns error if already favorited', (done) => {
+      axios.post(`${endpoint}/${movieId}/favorite`, { userId: userMongoId, movieId })
+        .then(() => axios.post(endpoint, { userId: userMongoId, movieId }))
+        .catch((error) => {
+          expect(error).to.exist;
+          expect(error.response.status).to.equal(500);
+          expect(error.response.data.error).to.be.a('string');
+
+          done();
+        });
+    });
+  });
+
+  describe('on delete', () => {
+    it('should delete a user\'s favorite', (done) => {
+      const payload = { userId: userMongoId };
+
+      axios.post(`${endpoint}/${movieId}/favorite`, payload)
+        .then(() => axios.delete(`${endpoint}/${movieId}/favorite`, { params: payload }))
+        .then((response) => {
+          expect(response.status).to.equal(200);
+          expect(response.data.error).to.be.null;
+          expect(response.data.data).to.be.true;
+
+          done();
         });
     });
   });

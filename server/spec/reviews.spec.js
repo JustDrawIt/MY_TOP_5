@@ -1,16 +1,15 @@
-require('dotenv').config();
 const axios = require('axios');
 const { expect } = require('chai');
 
-const { Movie, User, Review } = require('../database');
+const { Movie, User, Review } = require('../database/models');
 
 const { PORT } = process.env;
 const endpoint = `http://localhost:${PORT}/reviews`;
 
 describe('reviews', () => {
   describe('on get', () => {
-    const movieId1 = 100000
-    const movieId2 = 100001
+    const movieId1 = 100000;
+    const movieId2 = 100001;
     const userId1 = 'aaaaaaaaaa';
     const userId2 = 'aaaaaaaaab';
     const reviews = [
@@ -46,10 +45,7 @@ describe('reviews', () => {
       });
     });
 
-    afterEach((done) => {
-      Promise.all(reviewIds.map(id => Review.findByIdAndRemove(id).exec()))
-        .then(() => done());
-    });
+    afterEach(() => Promise.all(reviewIds.map(id => Review.findByIdAndRemove(id).exec())));
 
     it('should return all reviews', (done) => {
       axios.get(endpoint).then(({ status, data }) => {
@@ -141,8 +137,8 @@ describe('reviews', () => {
   describe('on post', () => {
     const movieId = 34343;
     const username = 'Bob';
-    let movieMongoId;
-    let userMongoId;
+    let movieMongoId = null;
+    let userMongoId = null;
 
     beforeEach((done) => {
       Promise.all([
@@ -155,13 +151,11 @@ describe('reviews', () => {
       });
     });
 
-    afterEach((done) => {
-      Promise.all([
-        Movie.deleteMany().exec(),
-        User.deleteMany().exec(),
-        Review.deleteMany().exec(),
-      ]).then(() => done());
-    });
+    afterEach(() => Promise.all([
+      Movie.deleteMany().exec(),
+      User.deleteMany().exec(),
+      Review.deleteMany().exec(),
+    ]));
 
     it('creates a review', (done) => {
       const payload = {

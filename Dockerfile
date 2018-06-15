@@ -2,10 +2,10 @@ FROM node:carbon
 
 WORKDIR /usr/movie-shelf
 
-COPY package*.json .
+COPY package*.json ./
 RUN npm install
 
-COPY . .
+COPY ./ ./
 
 EXPOSE 80
 CMD ["npm", "start"]
