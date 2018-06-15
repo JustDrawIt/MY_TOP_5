@@ -1,16 +1,25 @@
 <div ng-if="$ctrl.authenticated" class='container'>
     <h1 class="center-align title">MY MOVIE SHELF</h1>
-    <search result="$ctrl.searchResults" get-details="$ctrl.getDetailsFromIDs"></search>
+    <div class="row">
+        <div class="col s2"></div>
+        <search result="$ctrl.searchResults" get-details="$ctrl.getDetailsFromIDs" class="left col s8"></search>
+        <button type="button" class="right btn blue z-depth-2 col s2" ng-click="$ctrl.handleNewUpcoming()">New Movies</button>
+    </div>
     <div class="row">
         <div class="col s7">
             <movie-list
+                ng-if="$ctrl.viewSearched"
+                movies-db="$ctrl.moviesDB"
                 userid="$ctrl.user"
-                movies="$ctrl.movies" movies-db="$ctrl.moviesDB"
                 pushit="$ctrl.pushit"
             ></movie-list>
+            <now-upcoming
+                ng-if="$ctrl.viewNewMovies"
+                now-playing="$ctrl.nowPlaying"
+                upcoming="$ctrl.upcoming"
+            ></now-upcoming>
         </div>
         <div class="col s5">
-            TOP RATED MOVIES
             <shelf
                 userid="$ctrl.user"
                 my-movies="$ctrl.shelf"

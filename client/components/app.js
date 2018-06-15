@@ -1,9 +1,11 @@
 angular.module('movie-shelf')
   .component('app', {
-    controller: function controller(server, TheMovieDB, $sce) {
+    controller: function controller(TheMovieDB, $sce) {
       this.movies = [];
       this.moviesDB = [];
       this.shelf = [];
+      this.upcoming = [];
+      this.nowPlaying = [];
       this.user = null;
 
       this.searchResults = (data) => {
@@ -20,12 +22,22 @@ angular.module('movie-shelf')
         return this.authenticated;
       };
 
+      this.handleNewUpcoming = () => {
+        TheMovieDB.getUpcoming().then((response) => {
+          this.getDetailsFromIDs(response, 'upcoming', 'viewNewMovies');
+        }).catch(err => console.log(err));
+        TheMovieDB.getNowPlaying().then((response) => {
+          this.getDetailsFromIDs(response, 'nowPlaying', 'viewNewMovies');
+        }).catch(err => console.log(err));
+      };
 
-      this.getDetailsFromIDs = (movies) => {
+      this.getDetailsFromIDs = (movies, destination, view) => {
+        this.viewSearched = false;
+        this.viewNewMovies = false;
+        this[view] = true;
         // reset moviesDB state;
         this.moviesDB = [];
-        // push each movieDetail to moviesDB state
-        movies.slice(0, 15).forEach((movie) => {
+        movies.forEach((movie) => {
           const {
             id,
             title,
@@ -68,7 +80,7 @@ angular.module('movie-shelf')
                 M.toast({ html: 'Failed to load all directors, try again in 10seconds' });
               }
             });
-          this.moviesDB.push(movieDetails);
+          this[destination].push(movieDetails);
         });
       };
 
