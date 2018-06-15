@@ -1,27 +1,31 @@
-angular.module("movie-shelf")
-  .component("shelfEntry", {
+angular.module('movie-shelf')
+  .component('shelfEntry', {
     bindings: {
-      movie: "<",
-      spliceit: "<"
+      movie: '<',
+      spliceit: '<',
+      user: '<',
     },
-    controller: function (server) {
+    controller(server) {
+      console.log(this.user);
       this.comments = [];
-      this.box=false;
-      
+      this.box = false;
+
 
       this.showBox = () => {
         this.box = !this.box;
-        console.log('hello box!')
-      }
-      
+        console.log('hello box!');
+      };
+
       this.leaveComment = (comment) => {
-        console.log(comment)
-        if(!comment) return;
-        this.comments.unshift('-' + comment);
-      }
-      this.reMovie = movie => {
+        console.log(comment);
+        if (!comment) return;
+        this.comments.unshift(`-${  comment}`);
+        // server.add
+      };
+
+      this.reMovie = (movie) => {
         this.spliceit(movie);
       };
     },
-    templateUrl: "/templates/shelfEntry.html"
-});
+    templateUrl: '/templates/shelfEntry.html',
+  });

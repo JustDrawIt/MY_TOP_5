@@ -7,6 +7,7 @@ angular.module('movie-shelf')
     // finish up this function
     controller: function controller() {
       this.sendMovie = (movie) => {
+        console.log(this);
         this.pushit(movie);
       };
     },
