@@ -14,10 +14,10 @@
     1. [/reviews/:reviewId](#get-reviewsreviewid)
 1. [POST](#post)
     1. [/movies](#post-movies)
-    1. [/favorite](#post-favorite)
+    1. [/movies/:movieId/favorite](#post-moviesmovieidfavorite)
     1. [/reviews](#post-reviews)
 1. [DELETE](#delete)
-    1. [/favorite](#delete-favoriteuseridmovieid)
+    1. [/movies/:movieId/favorite](#delete-moviesmovieidfavoriteuserid)
 
 ---
 ## Schema
@@ -173,14 +173,12 @@
   }
   ```
 
-* ### POST /favorite
+* ### POST /movies/:movieId/favorite
   > Updates a movie's favorite count
   #### Body
-  - movieId: __Number__
   - userId: __String__
   ```json
   {
-    "movieId": 283552,
     "userId": "5b22931560ae4d29aac43a72"
   }
   ```
@@ -220,13 +218,11 @@
 ---
 ## DELETE
 
-* ### DELETE /favorite?userId=&movieId=
+* ### DELETE /movies/:movieId/favorite?userId=
   > Deletes a user's favorite
   #### Query
-  - movieId: __Number__
   - userId: __String__
   ```http
-  ?movieId=213344
   &userId=5b22931560ae4d29aac43a72
   ```
   #### Response
