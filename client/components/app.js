@@ -18,6 +18,16 @@ angular.module('movie-shelf')
         if (data.user) {
           this.user = data.user;
           this.authenticated = true;
+          this.user.favorites.map((movie) => {
+            TheMovieDB.getMovie(movie.movieId)
+              .then((res) => {
+                console.log(res);
+                this.pushit(res);
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          });
         }
         return this.authenticated;
       };

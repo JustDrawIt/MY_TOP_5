@@ -8,6 +8,17 @@ angular.module('movie-shelf')
         .catch(err => reject(err));
     });
 
+    this.getMovie = (movieId) => {
+      return $http
+        .get(`/search/movies?id=${movieId}`)
+        .then(({ data }) => {
+          return data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
     this.searchVideos = id => new Promise((resolve, reject) => {
       $http.get('/search/video', { params: { id } })
         .then((response) => {
@@ -40,27 +51,12 @@ angular.module('movie-shelf')
     });
   })
   .service('server', function ($http) {
-    this.getShelf = (callback) => {
-      $http
-        .get('/favorite')
-        .then(({ data }) => {
-          console.log(data);
-          if (callback) {
-            callback(data);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-
     this.addReview = (message, movieId, userId, callback) => {
       return $http
         .post('/reviews', {
           message, movieId, userId,
         })
         .then(({ data }) => {
-          console.log(data);
           if (callback) {
             callback(data);
           }
@@ -75,7 +71,6 @@ angular.module('movie-shelf')
       return $http
         .post(`/movies/${movieId}/favorite`, {  userId })
         .then(({ data }) => {
-          console.log(data);
           if (callback) {
             callback(data);
           }
@@ -85,13 +80,10 @@ angular.module('movie-shelf')
         });
     };
 
-    this.deleteMovie = (movie, callback) => {
-      $http({
+    this.deleteMovie = (movieId, userId, callback) => {
+      return $http({
         method: 'DELETE',
-        url: '/shelf',
-        data: {
-          movieId: movie._id,
-        },
+        url: `/movies/${movieId}/favorite?userId=${userId}`,
         headers: {
           'Content-type': 'application/json;charset=utf-8',
         },
