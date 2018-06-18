@@ -7,6 +7,11 @@ angular.module('movie-shelf')
       this.upcoming = [];
       this.nowPlaying = [];
       this.user = null;
+      this.showTopMovies = true;
+
+      this.toggleTopMovies = () => {
+        this.showTopMovies = !this.showTopMovies;
+      };
 
       this.searchResults = (data) => {
         this.movies = data.results;
