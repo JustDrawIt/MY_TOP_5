@@ -21,7 +21,6 @@ angular.module('movie-shelf')
           this.user.favorites.map((movie) => {
             TheMovieDB.getMovie(movie.movieId)
               .then((res) => {
-                console.log(res);
                 this.pushit(res);
               })
               .catch((err) => {
