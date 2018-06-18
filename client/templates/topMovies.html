@@ -1,0 +1,13 @@
+<div>
+  <h4>Top Movies</h4>
+  <ul>
+    <div ng-repeat="movie in $ctrl.movies">
+      <h4><i>Favorites: {{movie.favorites}}</i></h4>
+      <movie-entry
+        userid="$ctrl.userid"
+        movie="movie"
+        pushit="$ctrl.pushit"
+      />
+    </div>
+  </ul>
+</div>
