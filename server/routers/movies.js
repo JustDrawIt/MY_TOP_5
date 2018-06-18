@@ -43,7 +43,7 @@ movies.post('/:movieId/favorite', (req, res) => {
   movieId = Number(movieId);
 
   axios.get(`/movies?movieId=${movieId}`)
-    .catch(() => axios.post('http://localhost:8080/movies', { movieId }))
+    .catch(() => axios.post('/movies', { movieId }))
     .then(() => db.favoriteMovie(movieId, userId))
     .then(movie => res.send({ data: movie, error: null }))
     .catch(error => res.status(500).send({ error: error.message }));

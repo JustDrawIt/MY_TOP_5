@@ -1,6 +1,7 @@
 <li class="video-list-entry media">
     <div class="media-left">
-        <img class="media-object" ng-src="{{$ctrl.movie.posterUrl}}" />
+<img class="media-object" ng-src="{{$ctrl.movie.posterUrl || 'http://image.tmdb.org/t/p/w200' + $ctrl.movie.poster_path}}"
+/>
     </div>
     
     <div class="media-body">

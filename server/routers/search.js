@@ -52,4 +52,11 @@ search.get('/upcoming', (req, res) => {
     .catch(error => res.status(500).send({ error: error.message }));
 });
 
+search.get('/movies', (req, res) => {
+  const { id } = req.query;
+  axios.get(`${ENDPOINT}/movie/${id}?api_key=${KEY}`)
+    .then(response => res.status(200).send(response.data))
+    .catch(error => res.status(500).send({ error: error.message }));
+});
+
 module.exports = search;
