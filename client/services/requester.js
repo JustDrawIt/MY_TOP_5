@@ -1,5 +1,5 @@
 angular.module('movie-shelf')
-  .service('TheMovieDB', function ($http) {
+  .service('TheMovieDB', function TheMovieDB($http) {
     this.search = query => new Promise((resolve, reject) => {
       $http.get('/search', { params: { query } })
         .then((response) => {
@@ -50,7 +50,19 @@ angular.module('movie-shelf')
         .catch(err => reject(err));
     });
   })
-  .service('server', function ($http) {
+  .service('server', function server($http) {
+    this.getTopMovies = () => $http.get('/movies')
+      .then(response => response.data.data)
+      .then(movies => movies.sort((a, b) => {
+        if (a.favorites === b.favorites) return 0;
+        return a.favorites > b.favorites ? -1 : 1;
+      }))
+      .then(topMovies => topMovies.slice(0, 5))
+      .then(movies => movies.map(movie =>
+        $http.get(`/search/movies?id=${movie.movieId}`)
+          .then(response => ({ ...response.data, ...movie }))))
+      .then(moviesPromises => Promise.all(moviesPromises));
+
     this.addReview = (message, movieId, userId, callback) => {
       return $http
         .post('/reviews', {
@@ -98,7 +110,7 @@ angular.module('movie-shelf')
         });
     };
   })
-  .service('checkAuth', function ($http) {
+  .service('checkAuth', function checkAuth($http) {
     this.check = (callback) => {
       $http.get('/auth')
         .then(({ data }) => {
