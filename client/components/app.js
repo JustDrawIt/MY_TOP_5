@@ -60,7 +60,7 @@ angular.module('movie-shelf')
           movieDetails.overview = overview;
           movieDetails.releaseDate = release_date;
           if (poster_path) {
-            movieDetails.posterUrl = `http://image.tmdb.org/t/p/w500${poster_path}`;
+            movieDetails.posterUrl = `http://image.tmdb.org/t/p/w200${poster_path}`;
           }
           TheMovieDB.searchVideos(id)
             .then((videos) => {
