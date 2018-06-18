@@ -21,7 +21,6 @@ angular.module('movie-shelf')
           this.user.favorites.map((movie) => {
             TheMovieDB.getMovie(movie.movieId)
               .then((res) => {
-                console.log(res);
                 this.pushit(res);
               })
               .catch((err) => {
@@ -61,7 +60,7 @@ angular.module('movie-shelf')
           movieDetails.overview = overview;
           movieDetails.releaseDate = release_date;
           if (poster_path) {
-            movieDetails.posterUrl = `http://image.tmdb.org/t/p/w500${poster_path}`;
+            movieDetails.posterUrl = `http://image.tmdb.org/t/p/w200${poster_path}`;
           }
           TheMovieDB.searchVideos(id)
             .then((videos) => {
