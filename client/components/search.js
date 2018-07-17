@@ -10,7 +10,7 @@ angular.module('movie-shelf')
         const ctrl = this;
         TheMovieDB.search(query)
           .then(data => ctrl.getDetails(data, 'moviesDB', 'searched'))
-          .catch((err) => { console.log(err); });
+          .catch(err => console.log(err));
       };
     },
     templateUrl: 'templates/search.html',
