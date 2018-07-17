@@ -7,6 +7,36 @@
       <button type="button" class="right btn blue z-depth-2 col s2" ng-click="$ctrl.handleNewUpcoming()">New Movies</button>
     </div>
     <div class="row">
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col s3">
+            <a href="#movieList" ng-click="$ctrl.toggleView(searched)">Search Movies</a>
+          </li>
+          <li class="tab col s3">
+            <a href="#topMovies" ng-click="$ctrl.toggleView(topMovies)">Top Movies</a>
+          </li>
+          <li class="tab col s3">
+            <a href="#newUpcoming" ng-click="$ctrl.handleNewUpcoming()">New Movies</a>
+          </li>
+          <li class="tab col s3">
+            <a href="#myShelf" ng-click="$ctrl.toggleView(myShelf)">Your Shelf</a>
+          </li>
+        </ul>
+      </div>
+      <div id="topMovies" class="col s12">
+        <top-movies ng-if="$ctrl.views.topMovies" userid="$ctrl.user" pushit="$ctrl.pushit"></top-movies>
+      </div>
+      <div id="newUpcoming" class="col s12">
+        <now-upcoming  ng-if="$ctrl.views.newMovies" userid="$ctrl.user" pushit="$ctrl.pushit" now-playing="$ctrl.nowPlaying" upcoming="$ctrl.upcoming"></now-upcoming>
+      </div>
+      <div id="movieList" class="col s12">
+        <movie-list ng-if="$ctrl.views.searched" movies-db="$ctrl.moviesDB" userid="$ctrl.user" pushit="$ctrl.pushit"></movie-list>
+      </div>
+      <div id="myShelf" class="col s12">
+        <shelf ng-if="$ctrl.views.myShelf" userid="$ctrl.user" my-movies="$ctrl.shelf" spliceit="$ctrl.spliceit"></shelf>
+      </div>
+    </div>
+    <!-- <div class="row">
         <div class="col s7">
             <top-movies
               ng-if="$ctrl.showTopMovies"
@@ -14,13 +44,13 @@
               pushit="$ctrl.pushit"
             ></top-movies>
             <movie-list
-              ng-if="$ctrl.viewSearched"
+              ng-if="$ctrl.views.searched"
               movies-db="$ctrl.moviesDB"
               userid="$ctrl.user"
               pushit="$ctrl.pushit"
             ></movie-list>
             <now-upcoming
-              ng-if="$ctrl.viewNewMovies"
+              ng-if="$ctrl.views.newMovies"
               userid="$ctrl.user"
               pushit="$ctrl.pushit"
               now-playing="$ctrl.nowPlaying"
@@ -34,7 +64,7 @@
               spliceit="$ctrl.spliceit"
             ></shelf>
         </div>
-    </div>
+    </div> -->
 </div>
 <div ng-if="!$ctrl.authenticated">
     <login 
