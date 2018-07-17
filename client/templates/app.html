@@ -13,16 +13,16 @@
       <div class="col s12">
         <ul class="tabs">
           <li class="tab col s3">
-            <a href="#movieList" ng-click="$ctrl.toggleView(searched)">Search Movies</a>
+            <a href="#movieList" ng-click="$ctrl.toggleView('searched')">Search Movies</a>
           </li>
           <li class="tab col s3">
-            <a href="#topMovies" ng-click="$ctrl.toggleView(topMovies)">Top Movies</a>
+            <a href="#topMovies" ng-click="$ctrl.toggleView('topMovies')">Top Movies</a>
           </li>
           <li class="tab col s3">
             <a href="#newUpcoming" ng-click="$ctrl.handleNewUpcoming()">New Movies</a>
           </li>
           <li class="tab col s3">
-            <a href="#myShelf" ng-click="$ctrl.toggleView(myShelf)">Your Shelf</a>
+            <a href="#myShelf" ng-click="$ctrl.toggleView('myShelf')">Your Shelf</a>
           </li>
         </ul>
       </div>
@@ -30,7 +30,7 @@
         <top-movies ng-if="$ctrl.views.topMovies" userid="$ctrl.user" pushit="$ctrl.pushit"></top-movies>
       </div>
       <div id="newUpcoming" class="col s12">
-        <now-upcoming  ng-if="$ctrl.views.newMovies" userid="$ctrl.user" pushit="$ctrl.pushit" now-playing="$ctrl.nowPlaying" upcoming="$ctrl.upcoming"></now-upcoming>
+        <now-upcoming  ng-if="$ctrl.views.newMovies" userid="$ctrl.user" pushit="$ctrl.pushit" loading-upcoming="$ctrl.loading.upcoming" loading-now-playing="$ctrl.loading.nowPlaying" now-playing="$ctrl.nowPlaying" upcoming="$ctrl.upcoming"></now-upcoming>
       </div>
       <div id="movieList" class="col s12">
         <movie-list ng-if="$ctrl.views.searched" movies-db="$ctrl.moviesDB" userid="$ctrl.user" pushit="$ctrl.pushit"></movie-list>
