@@ -3,7 +3,9 @@
     <div class="row">
       <div class="col s2"></div>
       <search result="$ctrl.searchResults" get-details="$ctrl.getDetailsFromIDs" class="left col s8"></search>
-      <button href="/auth/logout" type="button" class="right btn blue z-depth-2 col s2">Logout</button>
+      <a href="/auth/logout"
+        <button type="button" class="right btn blue z-depth-2 col s2"> Logout</button>
+      </a>
       <button type="button" class="right btn blue z-depth-2 col s2" ng-click="$ctrl.toggleTopMovies()">Top Movies</button>
       <button type="button" class="right btn blue z-depth-2 col s2" ng-click="$ctrl.handleNewUpcoming()">New Movies</button>
     </div>
