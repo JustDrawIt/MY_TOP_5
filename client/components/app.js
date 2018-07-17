@@ -6,11 +6,36 @@ angular.module('movie-shelf')
       this.shelf = [];
       this.upcoming = [];
       this.nowPlaying = [];
+      this.loading = {
+        nowPlaying: false,
+        upcoming: false,
+      };
       this.user = null;
-      this.showTopMovies = true;
+      this.views = {
+        topMovies: false,
+        myShelf: false,
+        newMovies: false,
+        searched: true,
+      };
+      $(document).ready(() => $('.tabs').tabs());
+      this.toggleView = (view) => {
+        Object.keys(this.views).forEach((key) => {
+          this.views[key] = false;
+        });
+        this.views[view] = true;
+      };
 
-      this.toggleTopMovies = () => {
-        this.showTopMovies = !this.showTopMovies;
+      this.toggleLoading = (item) => {
+        Object.keys(this.loading).forEach((key) => {
+          this.loading[key] = false;
+        });
+        if (Array.isArray(item)) {
+          item.forEach((loadingItem) => {
+            this.loading[loadingItem] = true;
+          });
+        } else {
+          this.loading[item] = true;
+        }
       };
 
       this.searchResults = (data) => {
@@ -23,32 +48,35 @@ angular.module('movie-shelf')
         if (data.user) {
           this.user = data.user;
           this.authenticated = true;
-          this.user.favorites.map((movie) => {
-            TheMovieDB.getMovie(movie.movieId)
-              .then((res) => {
-                this.pushit(res);
-              })
-              .catch((err) => {
-                console.error(err);
-              });
-          });
+          this.user.favorites.map(movie => TheMovieDB.getMovie(movie.movieId)
+            .then(res => this.pushit(res))
+            .catch(err => console.error(err)));
         }
         return this.authenticated;
       };
 
       this.handleNewUpcoming = () => {
-        TheMovieDB.getUpcoming().then((response) => {
-          this.getDetailsFromIDs(response, 'upcoming', 'viewNewMovies');
-        }).catch(err => console.log(err));
-        TheMovieDB.getNowPlaying().then((response) => {
-          this.getDetailsFromIDs(response, 'nowPlaying', 'viewNewMovies');
-        }).catch(err => console.log(err));
+        this.toggleView('newMovies');
+        this.toggleLoading(['nowPlaying', 'upcoming']);
+        TheMovieDB.getUpcoming()
+          .then(response => this.getDetailsFromIDs(response, 'upcoming', null, 'upcoming'))
+          .catch(err => console.log(err));
+        TheMovieDB.getNowPlaying()
+          .then(response => this.getDetailsFromIDs(response, 'nowPlaying', null, 'nowPlaying'))
+          .catch(err => console.log(err));
       };
 
-      this.getDetailsFromIDs = (movies, destination, view) => {
-        this.viewSearched = false;
-        this.viewNewMovies = false;
-        this[view] = true;
+      this.toggleErrorWait = () => {
+        this.errorWait = true;
+        setTimeout(() => {
+          this.errorWait = false;
+        }, 10000);
+      };
+
+      this.getDetailsFromIDs = (movies, destination, view, loading) => {
+        if (view) {
+          this.toggleView(view);
+        }
         // reset moviesDB state;
         this.moviesDB = [];
         movies.forEach((movie) => {
@@ -79,8 +107,9 @@ angular.module('movie-shelf')
               movieDetails.videos = youtubeVids;
             })
             .catch((err) => {
-              if (err.data.error === 'Request failed with status code 429') {
+              if (err.data.error === 'Request failed with status code 429' && !this.errorWait) {
                 M.toast({ html: 'Failed to load all videos, try again in 10seconds' });
+                this.toggleErrorWait();
               }
             });
           TheMovieDB.searchCast(id)
@@ -90,12 +119,14 @@ angular.module('movie-shelf')
               movieDetails.director = director;
             })
             .catch((err) => {
-              if (err.data.error === 'Request failed with status code 429') {
+              if (err.data.error === 'Request failed with status code 429' && !this.errorWait) {
                 M.toast({ html: 'Failed to load all directors, try again in 10seconds' });
+                this.toggleErrorWait();
               }
             });
           this[destination].push(movieDetails);
         });
+        this.loading[loading] = false;
       };
 
       this.pushit = (movie) => {

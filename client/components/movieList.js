@@ -6,7 +6,7 @@ angular.module('movie-shelf')
       pushit: '<',
       moviesDb: '<',
     },
-    controller: function () {
+    controller: function controller() {
     },
     templateUrl: '/templates/movieList.html',
   });

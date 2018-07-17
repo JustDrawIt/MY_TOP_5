@@ -1,42 +1,49 @@
 <div ng-if="$ctrl.authenticated" class='container'>
     <h1 class="center-align title">MY MOVIE SHELF</h1>
-    <div class="row">
+    <div class="row searchbar">
       <div class="col s2"></div>
       <search result="$ctrl.searchResults" get-details="$ctrl.getDetailsFromIDs" class="left col s8"></search>
-      <a href="/auth/logout"
-        <button type="button" class="right btn blue z-depth-5 col s2"> Logout</button>
-      </a>
-      <button type="button" class="right btn blue z-depth-5 col s2" ng-click="$ctrl.toggleTopMovies()">Top Movies</button>
-      <button type="button" class="right btn blue z-depth-5 col s2" ng-click="$ctrl.handleNewUpcoming()">New Movies</button>
+    <button type="button" class="right btn blue z-depth-3 col s2">
+        <a href="/auth/logout"> Logout  </a>
+    </button>
     </div>
     <div class="row">
-        <div class="col s7">
-            <top-movies
-              ng-if="$ctrl.showTopMovies"
-              userid="$ctrl.user"
-              pushit="$ctrl.pushit"
-            ></top-movies>
-            <movie-list
-              ng-if="$ctrl.viewSearched"
-              movies-db="$ctrl.moviesDB"
-              userid="$ctrl.user"
-              pushit="$ctrl.pushit"
-            ></movie-list>
-            <now-upcoming
-              ng-if="$ctrl.viewNewMovies"
-              userid="$ctrl.user"
-              pushit="$ctrl.pushit"
-              now-playing="$ctrl.nowPlaying"
-              upcoming="$ctrl.upcoming"
-            ></now-upcoming>
-        </div>
-        <div class="col s5">
-            <shelf
-              userid="$ctrl.user"
-              my-movies="$ctrl.shelf"
-              spliceit="$ctrl.spliceit"
-            ></shelf>
-        </div>
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col s3">
+            <button  type="button" class="btn-small blue z-depth-3">
+                <a href="#movieList" ng-click="$ctrl.toggleView('searched')">Search Movies</a>
+            </button>
+          </li>
+          <li class="tab col s3">
+            <button type="button" class="btn-small blue z-depth-3">
+                <a href="#topMovies" ng-click="$ctrl.toggleView('topMovies')">Top Movies</a>
+            </button>
+          </li>
+          <li class="tab col s3">
+            <button type="button" class="btn-small blue z-depth-3">
+                <a href="#newUpcoming" ng-click="$ctrl.handleNewUpcoming()">New Movies</a>
+            </button>
+          </li>
+          <li class="tab col s3">
+            <button type="button" class="btn-small blue z-depth-3">
+                <a href="#myShelf" ng-click="$ctrl.toggleView('myShelf')">Your Shelf</a>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div id="topMovies" class="col s12">
+        <top-movies class="center" ng-if="$ctrl.views.topMovies" userid="$ctrl.user" pushit="$ctrl.pushit"></top-movies>
+      </div>
+      <div id="newUpcoming" class="col s12">
+        <now-upcoming  class="center" ng-if="$ctrl.views.newMovies" userid="$ctrl.user" pushit="$ctrl.pushit" loading-upcoming="$ctrl.loading.upcoming" loading-now-playing="$ctrl.loading.nowPlaying" now-playing="$ctrl.nowPlaying" upcoming="$ctrl.upcoming"></now-upcoming>
+      </div>
+      <div id="movieList" class="col s12">
+        <movie-list class="center" ng-if="$ctrl.views.searched" movies-db="$ctrl.moviesDB" userid="$ctrl.user" pushit="$ctrl.pushit"></movie-list>
+      </div>
+      <div id="myShelf" class="col s12">
+        <shelf class="center" ng-if="$ctrl.views.myShelf" userid="$ctrl.user" my-movies="$ctrl.shelf" spliceit="$ctrl.spliceit"></shelf>
+      </div>
     </div>
 </div>
 <div ng-if="!$ctrl.authenticated">
