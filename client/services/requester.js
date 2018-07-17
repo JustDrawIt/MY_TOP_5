@@ -78,6 +78,7 @@ angular.module('movie-shelf')
         });
     };
 
+    this.getReviews = movieId => $http.get(`/reviews?movieId=${movieId}`);
 
     this.addFavorite = (movieId, userId, callback) => {
       return $http
