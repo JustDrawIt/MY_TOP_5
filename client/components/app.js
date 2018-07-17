@@ -58,12 +58,12 @@ angular.module('movie-shelf')
       this.handleNewUpcoming = () => {
         this.toggleView('newMovies');
         this.toggleLoading(['nowPlaying', 'upcoming']);
-        TheMovieDB.getUpcoming().then((response) => {
-          this.getDetailsFromIDs(response, 'upcoming', null, 'upcoming');
-        }).catch(err => console.log(err));
-        TheMovieDB.getNowPlaying().then((response) => {
-          this.getDetailsFromIDs(response, 'nowPlaying', null, 'nowPlaying');
-        }).catch(err => console.log(err));
+        TheMovieDB.getUpcoming()
+          .then(response => this.getDetailsFromIDs(response, 'upcoming', null, 'upcoming'))
+          .catch(err => console.log(err));
+        TheMovieDB.getNowPlaying()
+          .then(response => this.getDetailsFromIDs(response, 'nowPlaying', null, 'nowPlaying'))
+          .catch(err => console.log(err));
       };
 
       this.toggleErrorWait = () => {
