@@ -6,6 +6,10 @@ angular.module('movie-shelf')
       this.shelf = [];
       this.upcoming = [];
       this.nowPlaying = [];
+      this.loading = {
+        nowPlaying: false,
+        upcoming: false,
+      };
       this.user = null;
       this.views = {
         topMovies: false,
@@ -20,6 +24,20 @@ angular.module('movie-shelf')
         });
         this.views[view] = true;
       };
+
+      this.toggleLoading = (item) => {
+        Object.keys(this.loading).forEach((key) => {
+          this.loading[key] = false;
+        });
+        if (Array.isArray(item)) {
+          item.forEach((loadingItem) => {
+            this.loading[loadingItem] = true;
+          });
+        } else {
+          this.loading[item] = true;
+        }
+      };
+
       this.searchResults = (data) => {
         this.movies = data.results;
       };
@@ -38,16 +56,20 @@ angular.module('movie-shelf')
       };
 
       this.handleNewUpcoming = () => {
+        this.toggleView('newMovies');
+        this.toggleLoading(['nowPlaying', 'upcoming']);
         TheMovieDB.getUpcoming().then((response) => {
-          this.getDetailsFromIDs(response, 'upcoming', 'newMovies');
+          this.getDetailsFromIDs(response, 'upcoming', null, 'upcoming');
         }).catch(err => console.log(err));
         TheMovieDB.getNowPlaying().then((response) => {
-          this.getDetailsFromIDs(response, 'nowPlaying', 'newMovies');
+          this.getDetailsFromIDs(response, 'nowPlaying', null, 'nowPlaying');
         }).catch(err => console.log(err));
       };
 
-      this.getDetailsFromIDs = (movies, destination, view) => {
-        this.toggleView(view);
+      this.getDetailsFromIDs = (movies, destination, view, loading) => {
+        if (view) {
+          this.toggleView(view);
+        }
         // reset moviesDB state;
         this.moviesDB = [];
         movies.forEach((movie) => {
@@ -95,6 +117,7 @@ angular.module('movie-shelf')
             });
           this[destination].push(movieDetails);
         });
+        this.loading[loading] = false;
       };
 
       this.pushit = (movie) => {
