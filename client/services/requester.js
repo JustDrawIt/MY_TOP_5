@@ -57,21 +57,15 @@ angular.module('movie-shelf')
           .then(response => ({ ...response.data, ...movie }))))
       .then(moviesPromises => Promise.all(moviesPromises));
 
-    this.addReview = (message, movieId, userId, callback) => {
-      return $http
-        .post('/reviews', {
-          message, movieId, userId,
-        })
-        .then(({ data }) => {
-          if (callback) {
-            callback(data);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
+    this.addReview = (message, movieId, userId) => $http.post('/reviews', { message, movieId, userId })
+      .then(response => response.data.data)
+      .then(review => this.getUser(review.userId).then(user => ({ ...review, user: user.data })));
 
+    this.getReviews = movieId => $http.get(`/reviews?movieId=${movieId}`)
+      .then(response => response.data);
+
+    this.getUser = userId => $http.get(`/users/${userId}`)
+      .then(response => response.data);
 
     this.addFavorite = (movieId, userId, callback) => {
       return $http

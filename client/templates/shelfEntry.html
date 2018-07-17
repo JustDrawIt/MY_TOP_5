@@ -1,19 +1,41 @@
 <li class="video-list-entry media">
-    <div class="media-left">
-<img class="media-object" ng-src="{{$ctrl.movie.posterUrl || 'http://image.tmdb.org/t/p/w200' + $ctrl.movie.poster_path}}"
-/>
-    </div>
-    
-    <div class="media-body">
-        <h3>{{$ctrl.movie.trackName}}</h3>
-        <button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.reMovie($ctrl.movie)">Take off shelf</button>
-        <button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.showBox($ctrl.movie)">Notes</button>
-    </div>
-    <div ng-if="$ctrl.box">
-        <textarea class="form-control" rows="2" ng-model="note"></textarea>
-        <button type="button" class="btn btn-success btn-xs" ng-click="$ctrl.leaveComment(note)">Add note</button>
+  <div class="media-left">
+    <img class="media-object" ng-src="{{$ctrl.movie.posterUrl || 'http://image.tmdb.org/t/p/w200' + $ctrl.movie.poster_path}}" />
+  </div>
+  <div class="media-body">
+    <h3>{{$ctrl.movie.trackName}}</h3>
+    <button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.reMovie($ctrl.movie)">Take off shelf</button>
+    <a class="waves-effect waves-light btn modal-trigger" href="#reviews">
+      Reviews
+    </a>
+  </div>
+
+  <div id="reviews" class="modal">
+    <div class="modal-content">
+      <div>
+        <h4>Create a Review</h4>
+        <div class="input-field col s10">
+          <textarea ng-model="note" id="review" class="materialize-textarea"></textarea>
+          <label for="review">Review</label>
+        </div>
+        <div class="col s2">
+          <button type="button" class="btn btn-flat btn-xs" ng-click="$ctrl.leaveComment(note)">
+            <i class="material-icons">send</i>
+          </button>
+        </div>
+      </div>
+      <div>
+        <h4>Reviews</h4>
         <ul ng-if="$ctrl.comments.length">
-            <li ng-repeat="comment in $ctrl.comments">{{comment}}</li>
+          <li ng-repeat="comment in $ctrl.comments">
+            <h5>{{comment.user.username}}</h5>
+            <p>{{comment.message}}</p>
+          </li>
         </ul>
+      </div>
     </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
 </li>
