@@ -32,8 +32,8 @@ angular.module('movie-shelf')
         const userId = this.userid._id;
         this.pushit(movie);
         server.addFavorite(movieId, userId)
-          .then(() => M.html({ html: `"${movie.title}" was added to your shelf` }))
-          .catch(() => M.html({ html: `Oops, couldn't add "${movie.title}" to your shelf` }));
+          .then(() => M.toast({ html: `"${movie.title}" was added to your shelf` }))
+          .catch(() => M.toast({ html: `Oops, couldn't add "${movie.title}" to your shelf` }));
       };
     },
     templateUrl: '/templates/movieDBListEntry.html',
