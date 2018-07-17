@@ -7,12 +7,20 @@ angular.module('movie-shelf')
       this.upcoming = [];
       this.nowPlaying = [];
       this.user = null;
-      this.showTopMovies = true;
-
-      this.toggleTopMovies = () => {
-        this.showTopMovies = !this.showTopMovies;
+      this.views = {
+        topMovies: false,
+        myShelf: false,
+        newMovies: false,
+        searched: true,
       };
-
+      $(document).ready(() => $('.tabs').tabs());
+      this.toggleView = (view) => {
+        Object.keys(this.views).forEach((key) => {
+          console.log(this.views[key]);
+          this.views[key] = false;
+        });
+        this.views[view] = true;
+      };
       this.searchResults = (data) => {
         this.movies = data.results;
       };
@@ -23,32 +31,28 @@ angular.module('movie-shelf')
         if (data.user) {
           this.user = data.user;
           this.authenticated = true;
-          this.user.favorites.map((movie) => {
-            TheMovieDB.getMovie(movie.movieId)
-              .then((res) => {
-                this.pushit(res);
-              })
-              .catch((err) => {
-                console.error(err);
-              });
-          });
+          this.user.favorites.map(movie => TheMovieDB.getMovie(movie.movieId)
+            .then(res => this.pushit(res))
+            .catch(err => console.error(err)));
         }
         return this.authenticated;
       };
 
       this.handleNewUpcoming = () => {
         TheMovieDB.getUpcoming().then((response) => {
-          this.getDetailsFromIDs(response, 'upcoming', 'viewNewMovies');
+          this.getDetailsFromIDs(response, 'upcoming', 'newMovies');
         }).catch(err => console.log(err));
         TheMovieDB.getNowPlaying().then((response) => {
-          this.getDetailsFromIDs(response, 'nowPlaying', 'viewNewMovies');
+          this.getDetailsFromIDs(response, 'nowPlaying', 'newMovies');
         }).catch(err => console.log(err));
       };
 
       this.getDetailsFromIDs = (movies, destination, view) => {
-        this.viewSearched = false;
-        this.viewNewMovies = false;
-        this[view] = true;
+        this.views.searched = false;
+        this.views.newMovies = false;
+        this.views.topMovies = false;
+        this.views.myShelf = false;
+        this.views[view] = true;
         // reset moviesDB state;
         this.moviesDB = [];
         movies.forEach((movie) => {
