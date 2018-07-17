@@ -1,14 +1,14 @@
 <div>
     <h4> Upcoming </h4>
     <ul>
-        <li ng-if="$ctrl.upcoming.length === 0">
+        <li ng-if="$ctrl.loadingUpcoming">
             Loading...
         </li>
         <movie-entry ng-repeat="movie in $ctrl.upcoming" pushit="$ctrl.pushit" userid="$ctrl.userid" movie="movie" />
     </ul>
     <h4> Now Playing </h4>
     <ul>
-        <li ng-if="$ctrl.nowPlaying.length === 0">
+        <li ng-if="$ctrl.loadingNowPlaying">
             Loading...
         </li>
         <movie-entry ng-repeat="movie in $ctrl.nowPlaying" pushit= "$ctrl.pushit" userid="$ctrl.userid" movie="movie"  />
