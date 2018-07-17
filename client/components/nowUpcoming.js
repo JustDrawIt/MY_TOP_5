@@ -5,6 +5,8 @@ angular.module('movie-shelf')
       pushit: '<',
       upcoming: '<',
       nowPlaying: '<',
+      loadingNowPlaying: '<',
+      loadingUpcoming: '<',
     },
     controller: function controller() {
     },
