@@ -16,7 +16,6 @@ angular.module('movie-shelf')
       $(document).ready(() => $('.tabs').tabs());
       this.toggleView = (view) => {
         Object.keys(this.views).forEach((key) => {
-          console.log(this.views[key]);
           this.views[key] = false;
         });
         this.views[view] = true;
@@ -48,11 +47,7 @@ angular.module('movie-shelf')
       };
 
       this.getDetailsFromIDs = (movies, destination, view) => {
-        this.views.searched = false;
-        this.views.newMovies = false;
-        this.views.topMovies = false;
-        this.views.myShelf = false;
-        this.views[view] = true;
+        this.toggleView(view);
         // reset moviesDB state;
         this.moviesDB = [];
         movies.forEach((movie) => {
