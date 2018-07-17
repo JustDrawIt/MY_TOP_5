@@ -9,9 +9,8 @@
     <div>{{'"' + $ctrl.movie.overview + '"'}}</div>
     <a ng-if="$ctrl.movie.hasMedia" class="waves-effect waves-light btn blue" ng-click="$ctrl.movie.openModal()">Media</a>
     <button type="button" class="btn blue waves-effect waves-light z-depth-2" ng-click="$ctrl.sendMovie($ctrl.movie)">Add to my shelf</button>
-  </div>  
-  <!-- Modal Structure -->
-  <div ng-if="$ctrl.movie.hasMedia" class="modal">
+  </div>
+  <div ng-if="$ctrl.movie.hasMedia && $ctrl.showModal" class="modal">
     <div class="modal-content">
       <h4>Video Media</h4>
       <div class="slider">
