@@ -66,6 +66,13 @@ angular.module('movie-shelf')
         }).catch(err => console.log(err));
       };
 
+      this.toggleErrorWait = () => {
+        this.errorWait = true;
+        setTimeout(() => {
+          this.errorWait = false;
+        }, 10000);
+      };
+
       this.getDetailsFromIDs = (movies, destination, view, loading) => {
         if (view) {
           this.toggleView(view);
@@ -100,8 +107,9 @@ angular.module('movie-shelf')
               movieDetails.videos = youtubeVids;
             })
             .catch((err) => {
-              if (err.data.error === 'Request failed with status code 429') {
+              if (err.data.error === 'Request failed with status code 429' && !this.errorWait) {
                 M.toast({ html: 'Failed to load all videos, try again in 10seconds' });
+                this.toggleErrorWait();
               }
             });
           TheMovieDB.searchCast(id)
@@ -111,8 +119,9 @@ angular.module('movie-shelf')
               movieDetails.director = director;
             })
             .catch((err) => {
-              if (err.data.error === 'Request failed with status code 429') {
+              if (err.data.error === 'Request failed with status code 429' && !this.errorWait) {
                 M.toast({ html: 'Failed to load all directors, try again in 10seconds' });
+                this.toggleErrorWait();
               }
             });
           this[destination].push(movieDetails);
