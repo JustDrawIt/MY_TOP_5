@@ -2,7 +2,7 @@
     <h1 class="center-align logo">MY MOVIE SHELF</h1>
     <div class="row searchbar">
       <div class="col s2"></div>
-      <search result="$ctrl.searchResults" get-details="$ctrl.getDetailsFromIDs" class="left col s8"></search>
+      <search result="$ctrl.searchResults" get-details="$ctrl.getDetailsFromIDs" toggle-view="$ctrl.toggleView" toggle-loading="$ctrl.toggleLoading" class="left col s8"></search>
       <a href="/auth/logout" class="right btn blue z-depth-3 col s2">Logout</a>
     </div>
     <div class="row">
@@ -35,6 +35,9 @@
           </li>
         </ul>
       </div>
+      <div id="movieList" class="col s12">
+        <movie-list class="center" ng-if="$ctrl.views.searched" movies-db="$ctrl.moviesDB" userid="$ctrl.user" pushit="$ctrl.pushit" loading-search="$ctrl.loading.search"></movie-list>
+      </div>
       <div id="topMovies" class="col s12">
         <top-movies class="center" ng-if="$ctrl.views.topMovies" userid="$ctrl.user" pushit="$ctrl.pushit" loading-top-movies="$ctrl.loading.topMovies"></top-movies>
       </div>
@@ -43,9 +46,6 @@
       </div>
       <div id="upcoming" class="col s12">
         <upcoming class="center" ng-if="$ctrl.views.upcomingMovies" userid="$ctrl.user" pushit="$ctrl.pushit" loading-upcoming="$ctrl.loading.upcoming" upcoming="$ctrl.upcoming"></upcoming>
-      </div>
-      <div id="movieList" class="col s12">
-        <movie-list class="center" ng-if="$ctrl.views.searched" movies-db="$ctrl.moviesDB" userid="$ctrl.user" pushit="$ctrl.pushit"></movie-list>
       </div>
       <div id="myShelf" class="col s12">
         <shelf class="center" ng-if="$ctrl.views.myShelf" userid="$ctrl.user" my-movies="$ctrl.shelf" spliceit="$ctrl.spliceit"></shelf>

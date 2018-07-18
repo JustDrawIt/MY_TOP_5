@@ -7,6 +7,7 @@ angular.module('movie-shelf')
       this.upcoming = [];
       this.nowPlaying = [];
       this.loading = {
+        search: false,
         nowPlaying: false,
         upcoming: false,
       };
@@ -28,14 +29,16 @@ angular.module('movie-shelf')
 
       this.toggleLoading = (item) => {
         Object.keys(this.loading).forEach((key) => {
-          this.loading[key] = false;
+          if (key !== item) {
+            this.loading[key] = false;
+          }
         });
         if (Array.isArray(item)) {
           item.forEach((loadingItem) => {
-            this.loading[loadingItem] = true;
+            this.loading[loadingItem] = !this.loading[loadingItem];
           });
         } else {
-          this.loading[item] = true;
+          this.loading[item] = !this.loading[item];
         }
       };
 

@@ -5,6 +5,7 @@ angular.module('movie-shelf')
       movies: '<',
       pushit: '<',
       moviesDb: '<',
+      loadingSearch: '<',
     },
     controller: function controller() {
     },

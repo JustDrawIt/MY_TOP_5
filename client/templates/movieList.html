@@ -1,7 +1,8 @@
 <div>
-    <h3 class="tab-title">Search results</h3>
-    There are {{$ctrl.moviesDb.length}} flicks.
-    <ul>
-        <movie-entry ng-repeat="movie in $ctrl.moviesDb" userid="$ctrl.userid" movie="movie" pushit="$ctrl.pushit" />
-    </ul>
+  <h3 class="tab-title">Search results</h3>
+  There are {{$ctrl.moviesDb.length}} flicks.
+  <ul>
+    <loading ng-if="$ctrl.loadingSearch"></loading>
+    <movie-entry ng-repeat="movie in $ctrl.moviesDb" userid="$ctrl.userid" movie="movie" pushit="$ctrl.pushit" />
+  </ul>
 </div>
