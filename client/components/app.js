@@ -12,10 +12,11 @@ angular.module('movie-shelf')
       };
       this.user = null;
       this.views = {
-        topMovies: false,
+        topMovies: true,
         myShelf: false,
         newMovies: false,
-        searched: true,
+        upcomingMovies: false,
+        searched: false,
       };
       $(document).ready(() => $('.tabs').tabs());
       this.toggleView = (view) => {
@@ -55,14 +56,19 @@ angular.module('movie-shelf')
         return this.authenticated;
       };
 
-      this.handleNewUpcoming = () => {
+      this.handleNew = () => {
         this.toggleView('newMovies');
-        this.toggleLoading(['nowPlaying', 'upcoming']);
-        TheMovieDB.getUpcoming()
-          .then(response => this.getDetailsFromIDs(response, 'upcoming', null, 'upcoming'))
-          .catch(err => console.log(err));
+        this.toggleLoading(['nowPlaying']);
         TheMovieDB.getNowPlaying()
           .then(response => this.getDetailsFromIDs(response, 'nowPlaying', null, 'nowPlaying'))
+          .catch(err => console.log(err));
+      };
+
+      this.handleUpcoming = () => {
+        this.toggleView('upcomingMovies');
+        this.toggleLoading(['upcoming']);
+        TheMovieDB.getUpcoming()
+          .then(response => this.getDetailsFromIDs(response, 'upcoming', null, 'upcoming'))
           .catch(err => console.log(err));
       };
 
