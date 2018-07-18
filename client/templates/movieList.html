@@ -1,5 +1,5 @@
 <div>
-    <h4> Search results </h4>
+    <h3 class="tab-title">Search results</h3>
     There are {{$ctrl.moviesDb.length}} flicks.
     <ul>
         <movie-entry ng-repeat="movie in $ctrl.moviesDb" userid="$ctrl.userid" movie="movie" pushit="$ctrl.pushit" />
