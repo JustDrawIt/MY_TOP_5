@@ -14,17 +14,62 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Changa:800|Orbitron:900" rel="stylesheet">
     <style>
-        .title {
-            font-family: 'Changa', sans-serif;
+        .logo {
+          font-family: 'Changa', sans-serif;
         }
         .searchbar{
             margin-bottom: 0px;
         }
+        .tabs {
+          height: 60px;
+          display: flex;
+        }
+        .tabs .tab {
+          padding: 0 10px;
+          flex: 1;
+        }
+        .tabs .tab button {
+          width: 100%;
+        }
         .tabs .tab a{
-            color: white;
+          color: white;
+          padding-left: 0;
+          padding-right: 0;
+        }
+        .tab-title {
+          margin-bottom: 3rem;
         }
         a {
             color: white;
+        }
+
+        .video-list-entry .poster {
+          height: 380px;
+        }
+        .video-list-entry .poster img {
+          object-fit: cover;
+        }
+        .video-list-entry .title {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+        .video-list-entry .director {
+          display: block;
+          margin-top: .2rem;
+          margin-bottom: 1rem;
+        }
+        .video-list-entry .release-date {
+          margin-top: 1rem;
+        }
+        .video-list-entry .content > .row {
+          margin-bottom: 0px;
+        }
+        .video-list-entry .overview {
+          max-height: 200px;
+          margin-top: 0;
+          text-align: justify;
+          text-overflow: ellipsis;
+          overflow: hidden;
         }
     </style>
 </head>
@@ -34,13 +79,15 @@
         <app />
     </div>
     <script src='index.js'></script>
+    <script src='components/loading.js'></script>
     <script src='components/login.js'></script>
     <script src='components/app.js'></script>
     <script src='components/search.js'></script>
     <script src='components/movieList.js'></script>
     <script src='components/movieDBListEntry.js'></script>
     <script src='components/shelf.js'></script>
-    <script src='components/nowUpcoming.js'></script>
+    <script src='components/nowPlaying.js'></script>
+    <script src='components/upcoming.js'></script>
     <script src='components/shelfEntry.js'></script>
     <script src='components/topMovies.js'></script>
     <script src='services/requester.js'></script>
