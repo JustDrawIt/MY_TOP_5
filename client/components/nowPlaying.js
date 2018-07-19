@@ -1,14 +1,12 @@
 angular.module('movie-shelf')
-  .component('nowUpcoming', {
+  .component('nowPlaying', {
     bindings: {
       userid: '<',
       pushit: '<',
-      upcoming: '<',
       nowPlaying: '<',
       loadingNowPlaying: '<',
-      loadingUpcoming: '<',
     },
     controller: function controller() {
     },
-    templateUrl: '/templates/nowUpcoming.html',
+    templateUrl: '/templates/nowPlaying.html',
   });

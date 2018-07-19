@@ -1,0 +1,7 @@
+<div>
+  <h3 class="tab-title">Upcoming</h3>
+  <ul>
+    <loading ng-if="$ctrl.loadingUpcoming"></loading>
+    <movie-entry ng-repeat="movie in $ctrl.upcoming" pushit="$ctrl.pushit" userid="$ctrl.userid" movie="movie" />
+  </ul>
+</div>

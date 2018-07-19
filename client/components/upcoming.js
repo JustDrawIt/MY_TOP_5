@@ -1,13 +1,12 @@
 angular.module('movie-shelf')
-  .component('movieList', {
+  .component('upcoming', {
     bindings: {
       userid: '<',
-      movies: '<',
       pushit: '<',
-      moviesDb: '<',
-      loadingSearch: '<',
+      upcoming: '<',
+      loadingUpcoming: '<',
     },
     controller: function controller() {
     },
-    templateUrl: '/templates/movieList.html',
+    templateUrl: '/templates/upcoming.html',
   });
